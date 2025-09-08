@@ -29,7 +29,6 @@ index_format = "elasticlunr_json"
 author = "Igor Drokin"
 description = "Igor Drokin's Blog"
 index_page = "home"
-#top_menu = ["Home", "Resume", "Posts", "Projects"]
 top_menu =[
     { name = "Home", path="home" },
     { name = "Resume", path="resume" },

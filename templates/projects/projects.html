@@ -2,13 +2,27 @@
 {% block content %}
 <div class="row content">
   <div class="col-2"></div>
-  <div class="col-6">
-    <h1>Resume</h1>
-    <div>
-      {{ section.content | safe }}
+  <div class="col-6 content" id="catlist">
+    <h1 class="center">{{ section.title }}</h1>
+    <ul>
+      {% for post in paginator.pages %}
+      <li><b><a href="{{ post.permalink | safe }}">
+        {{ post.title }}
+        {%- if post.description -%}<div class="invis post-desc">{{ post.description }}</div>{%- endif -%}
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="pagination">
+      {%- if paginator.previous  or paginator.next -%}
+      {%- set pag_start = 1 -%}
+      {%- set pag_end = paginator.number_pagers -%}
+      {%- if paginator.previous -%}<a href = "{{ paginator.previous }}">&larr;</a>{%- endif -%}
+      {%- for i in range(start=pag_start, end=pag_end+1) -%}
+      <a class="{% if paginator.current_index == i %} current {% endif %}" href="{{ paginator.base_url | safe }}{{ i ~ '/' }}">{{i}}</a>
+      {%- endfor -%}
+      {%- if paginator.next -%}<a href = {{paginator.next}}>&rarr;</a>{%- endif -%}
+      {%- endif -%}
     </div>
   </div>
 </div>
-{% include "shares.html" %}
-{% include "comments.html" %}
 {% endblock %}

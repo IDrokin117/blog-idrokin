@@ -47,8 +47,9 @@ show_copyright = true
 Welcome to Igor Drokin resume! Here you can find relevant information about my professional experience. 
 You can read it below or download it in [.pdf](/files/resume.pdf) format.
 
-# Narrative
-Coming soon ...
+[//]: # (# Narrative)
+
+[//]: # (Coming soon ...)
 
 # Core Competencies
 - Build automated systems for data collection, transformation and aggregation
@@ -67,7 +68,7 @@ Coming soon ...
 
 ## Programming Languages
 - Python: 6+ years experience (5+ years professional)
-- Rust: 1.5 years experience
+- Rust: 2 years experience
 
 ## Languages
 - Russian: Native
