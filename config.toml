@@ -1,5 +1,6 @@
 # The URL the site will be built for
-base_url = "https://www.idrokin.com/"
+#base_url = "https://www.idrokin.com/"
+base_url = "http://localhost:8000/"
 title = "IDrokin"
 
 minify_html = true

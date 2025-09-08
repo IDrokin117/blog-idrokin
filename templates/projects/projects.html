@@ -6,8 +6,7 @@
     <h1 class="center">{{ section.title }}</h1>
     <ul>
       {% for post in paginator.pages %}
-      <li><b><a href="{{ post.permalink | safe }}">
-        {{ post.title }}
+      <li> <b><a href="{{ post.permalink | safe }}">{{ post.title }}</a></b>
         {%- if post.description -%}<div class="invis post-desc">{{ post.description }}</div>{%- endif -%}
       </li>
       {% endfor %}
@@ -24,5 +23,6 @@
       {%- endif -%}
     </div>
   </div>
+  <div class="col-2"></div>
 </div>
 {% endblock %}

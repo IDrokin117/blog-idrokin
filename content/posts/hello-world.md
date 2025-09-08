@@ -16,5 +16,4 @@ keywords = "igor,drokin,about"
 +++
 # Hello World
 
-Yet another "Hello, World!" ... 
-{{ draw_image(path="images/hello_world_meme.jpg") }}
+Yet another "Hello, World!" ... {{ draw_image(path="images/hello_world_meme.jpg") }}
