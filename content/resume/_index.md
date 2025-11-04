@@ -44,9 +44,11 @@ aliases = []
 show_shares = false
 show_copyright = true
 +++
-Welcome to Igor Drokin resume! I am a Team Lead and Data Scientist with 5+ years of experience in Python and Rust development. 
+
+[//]: # (# Resume)
+Welcome to Igor Drokin resume! I am a Senior Software Engineer and Team Lead with 5+ years of experience in Python and Rust development. 
 I specialize in building high-scale data processing systems, leading engineering teams, and deploying production solutions on AWS infrastructure. 
-My expertise includes web scraping, ETL pipelines, and cloud infrastructure management.
+My expertise includes web scraping, ETL pipelines, cloud infrastructure management and backend development.
 You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 
 [//]: # (# Narrative)
@@ -56,21 +58,21 @@ You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 # Core Competencies
 - Build automated systems for data collection, transformation and aggregation
 - Mentoring and leading small teams
-- Contributed to static analysis tools and type checkers for Python ([ruff](https://github.com/astral-sh/ruff), [purefly](https://github.com/facebook/pyrefly))
+- Contributed to static analysis tools and type checkers for Python ([ruff](https://github.com/astral-sh/ruff), [pyrefly](https://github.com/facebook/pyrefly))
 - Python mastery, Rust enjoyer
 
 ## Tech Stack
-- Frameworks: Scrapy, Playwright/Puppeteer/Selenium, FastAPI/Litestar
+- Core Frameworks: Litestar/FastAPI, Scrapy, Playwright/Selenium, Actix/Axum
 - Data & Analytics: Pandas, Jupyter Notebooks
-- Infrastructure: Docker, K8s
-- DevOps: ArgoCD, GitLab CI/CD, Prefect, Grafana, Metabase
-- Cloud: AWS(EC2, RDS, EKS, Route53, Lambda, SNS, SQS, S3)
-- Databases: MySQL, PostgreSQL, MongoDB
+- Infrastructure: Docker, K8s, CloudFormation, SAM
+- DevOps: ArgoCD, GitLab CI/CD, Grafana, Metabase
+- Cloud: AWS(EC2, RDS, EKS, SQS, S3, Lambda, DynamoDB, API Gateway, Step Functions)
+- Databases: MySQL, PostgreSQL, MongoDB, DynamoDB
 - Message Brokers: RabbitMQ, Redis, SQS
 
 ## Programming Languages
 - Python: 6+ years experience (5+ years professional)
-- Rust: 2 years experience
+- Rust: 2.5 years experience
 
 ## Languages
 - Russian: Native
