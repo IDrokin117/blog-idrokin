@@ -64,11 +64,11 @@ You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 ## Tech Stack
 - Core Frameworks: Litestar/FastAPI, Scrapy, Playwright/Selenium, Actix/Axum
 - Data & Analytics: Pandas, Jupyter Notebooks
-- Infrastructure: Docker, K8s, CloudFormation, SAM
+- Infrastructure: Docker, K8s, CloudFormation, SAM, AWS CDK
 - DevOps: ArgoCD, GitLab CI/CD, Grafana, Metabase
-- Cloud: AWS(EC2, RDS, EKS, SQS, S3, Lambda, DynamoDB, API Gateway, Step Functions)
+- Cloud: AWS(EC2, RDS, SQS, S3, Lambda, DynamoDB, API Gateway, Step Functions)
 - Databases: MySQL, PostgreSQL, MongoDB, DynamoDB
-- Message Brokers: RabbitMQ, Redis, SQS
+- Message Brokers: RabbitMQ, Redis, SQS, Kafka
 
 ## Programming Languages
 - Python: 6+ years experience (5+ years professional)
@@ -89,6 +89,7 @@ You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 **Team Lead | Project Lead | Data Scientist** (July 2020 - July 2025)  
 
 Designed and implemented high-scale data processing systems handling millions of records daily. Focused on  providing insights based on web data. Key responsibilities included
+
 - **Architected and deployed data processing systems handling 10+ million records daily**, reducing processing time by 40% and enabling real-time insights for clients across multiple industries
 - **Built and deployed 25+ scalable web scraping solutions on AWS** that collected over 100 million data points monthly with 99.5% accuracy
 - **Designed and implemented 10+ REST APIs** serving 1,000+ daily requests with 99.9% uptime, enabling seamless integration with client systems
