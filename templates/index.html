@@ -14,6 +14,7 @@
   </p>
 </section>
 {% set posts = get_section(path="posts/_index.md") %}
+{% include "series_block.html" %}
 <h2>Latest posts</h2>
 <ul class="post-list">
   {% for p in posts.pages %}{% if loop.index <= 3 %}

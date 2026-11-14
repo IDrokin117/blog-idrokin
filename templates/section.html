@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{ section.title }}</h1>
+{% include "series_block.html" %}
 {{ section.content | safe }}
 <ul class="post-list">
   {% for p in section.pages %}

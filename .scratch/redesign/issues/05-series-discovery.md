@@ -6,10 +6,10 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 03, 04
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Posts page lists Series at the top, each linking to its Series page
-- [ ] Home shows the Series block when the fixture set has a Series
-- [ ] Home and Posts page show no Series block or heading when no Series exist (second fixture variant)
-- [ ] A Series whose Parts are all drafts is not listed
-- [ ] Automated checks on built output
+- [x] Posts page lists Series at the top, each linking to its Series page
+- [x] Home shows the Series block when the fixture set has a Series
+- [x] Home and Posts page show no Series block or heading when no Series exist (second fixture variant)
+- [x] A Series whose Parts are all drafts is not listed
+- [x] Automated checks on built output

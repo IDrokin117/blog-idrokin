@@ -104,6 +104,38 @@ chk=$("$ROOT/scripts/check-series.sh" "$ROOT/tests/fixture/content" 2>&1)
 echo "$chk" | grep -q 'double-series' && pass "multi-series post triggers warning" || fail "multi-series post triggers warning"
 echo "$chk" | grep -q 'standalone\|rust-part-one' && fail "warning only for multi-series posts" || pass "warning only for multi-series posts"
 
+# Series discovery
+posts_main=$(tr -d '\n' <"$OUT/posts/index.html" | grep -oE '<main[^>]*>.*</main>')
+in_posts() { printf '%s' "$posts_main" | grep -Eq -- "$1" && pass "$2" || fail "$2"; }
+nin_posts() { printf '%s' "$posts_main" | grep -Eq -- "$1" && fail "$2" || pass "$2"; }
+in_posts 'href="?[^" >]*/series/rust-intro/[^>]*>Rust Intro<' "posts page lists Series linking to series page"
+in_posts 'href="?[^" >]*/series/drafty/' "series with one published part is listed on posts page"
+nin_posts 'All Draft Series|series/alldraft' "series with only draft parts not listed on posts page"
+in_posts '<h2[^>]*>Series</h2>' "posts page has Series heading"
+series_pos=$(printf '%s' "$posts_main" | grep -bo 'series/rust-intro' | head -1 | cut -d: -f1)
+post_pos=$(printf '%s' "$posts_main" | grep -bo 'posts/standalone' | head -1 | cut -d: -f1)
+[ -n "$series_pos" ] && [ -n "$post_pos" ] && [ "$series_pos" -lt "$post_pos" ] && pass "series listed before posts" || fail "series listed before posts"
+in_home 'href="?[^" >]*/series/rust-intro/[^>]*>Rust Intro<' "home shows Series block with a Series"
+printf '%s' "$home_main" | grep -Eq 'All Draft Series|series/alldraft' && fail "home omits all-draft series" || pass "home omits all-draft series"
+
+# Variant: no Series at all
+NS="$(mktemp -d)"
+cp -r "$ROOT/config.toml" "$ROOT/templates" "$NS/"
+[ -d "$ROOT/sass" ] && cp -r "$ROOT/sass" "$NS/"
+[ -d "$ROOT/static" ] && cp -r "$ROOT/static" "$NS/"
+cp -r "$ROOT/tests/fixture/content" "$NS/content"
+find "$NS/content/series" -name '*.md' ! -name '_index.md' -delete
+grep -lE '^series *=' "$NS"/content/posts/*.md | xargs rm -f
+if "$ZOLA" --root "$NS" build --output-dir "$NS/public" >"$NS/build.log" 2>&1; then
+  pass "no-series variant builds"
+  for f in index.html posts/index.html; do
+    grep -Eqi 'series' "$NS/public/$f" && fail "no-series variant: $f has no Series heading or links" || pass "no-series variant: $f has no Series heading or links"
+  done
+else
+  cat "$NS/build.log"; fail "no-series variant builds"
+fi
+rm -rf "$NS"
+
 # Tags and feed
 exists tags/about/index.html "tag page exists"
 has tags/about/index.html 'Hello World' "tag page lists its post"
