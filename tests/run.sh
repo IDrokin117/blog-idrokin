@@ -41,6 +41,22 @@ has posts/index.html 'href="?[^" >]*/posts/standalone/' "posts list links posts"
 
 # Resume
 has resume/index.html 'Fixture resume body' "resume page renders"
+has resume/index.html 'href="?mailto:fixture@example.com[" >]' "resume shows email from front matter"
+has resume/index.html 'href="?https://github.com/fixture[" >]' "resume shows GitHub from front matter"
+has resume/index.html 'href="?https://www.linkedin.com/in/fixture/[" >]' "resume shows LinkedIn from front matter"
+has resume/index.html 'Fixtureland' "resume shows location from front matter"
+for h in Summary Experience Skills Education; do
+  has resume/index.html "<h2[^>]*>$h</h2>" "resume renders $h section from markdown"
+done
+# Real resume: single markdown source with contacts in front matter and the four sections
+REAL="$ROOT/content/resume/_index.md"
+for h in Summary Experience Skills Education; do
+  grep -Eq "^## $h\s*$" "$REAL" && pass "real resume has $h heading" || fail "real resume has $h heading"
+done
+for k in email github linkedin location; do
+  awk '/^\+\+\+/{n++} n==1' "$REAL" | grep -Eq "^$k *=" && pass "real resume front matter has $k" || fail "real resume front matter has $k"
+done
+{ ! grep -Eq '<(a|div|ul|section) ' "$REAL" 2>/dev/null; } && pass "real resume has no HTML markup" || fail "real resume has no HTML markup"
 
 # Tags and feed
 exists tags/about/index.html "tag page exists"
