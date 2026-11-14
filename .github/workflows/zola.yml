@@ -25,9 +25,16 @@ jobs:
       - name: test
         run: tests/run.sh
 
+      - name: install uv
+        uses: astral-sh/setup-uv@v6
+
+      # WeasyPrint needs Pango at runtime.
+      - name: install pango
+        run: sudo apt-get update && sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0
+
       # Builds the site, checks internal links (fails the job on a broken link),
-      # and renders the Resume page to public/files/resume.pdf with the
-      # Google Chrome preinstalled on ubuntu-latest.
+      # and renders the Resume page to public/files/resume.pdf with WeasyPrint
+      # (scripts/resume-pdf.py, run via uv).
       - name: build, link check, pdf
         run: scripts/build.sh
 

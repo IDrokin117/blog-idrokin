@@ -1,7 +1,16 @@
-<header>
-  <nav>
-    {% for item in config.extra.top_menu %}
-    <a href="{{ get_url(path=item.path) }}"{% if item.path == "/" and current_path == "/" or item.path != "/" and item.path in current_path %} class="active"{% endif %}>{{ item.name }}</a>
-    {% endfor %}
-  </nav>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="{{ get_url(path='/') }}">{{ config.extra.author }}</a>
+    <div class="header-end">
+    <nav aria-label="Main">
+      {% for item in config.extra.top_menu %}
+      <a href="{{ get_url(path=item.path) }}"{% if item.path == "/" and current_path == "/" or item.path != "/" and item.path in current_path %} class="active" aria-current="page"{% endif %}>{{ item.name }}</a>
+      {% endfor %}
+    </nav>
+    <div class="palette-switch" role="group" aria-label="Theme">
+      <button type="button" data-set="dark" title="Dark" aria-label="Dark theme"></button>
+      <button type="button" data-set="cream" title="Light" aria-label="Light theme"></button>
+    </div>
+    </div>
+  </div>
 </header>

@@ -6,8 +6,7 @@
 #   OUT=dir scripts/build.sh    # custom output directory
 #
 # Zola: $ZOLA, else `zola` on PATH.
-# Chrome/Chromium (any headless-capable build): $CHROME, else google-chrome, chromium,
-# chromium-browser or chrome-headless-shell on PATH.
+# uv (https://docs.astral.sh/uv/): the Resume PDF is rendered by WeasyPrint via scripts/resume-pdf.py.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ZOLA="${ZOLA:-zola}"
@@ -16,13 +15,7 @@ PDF_PATH="files/resume.pdf"   # stable URL: https://www.idrokin.com/files/resume
 RESUME_PATH="resume/"
 
 command -v "$ZOLA" >/dev/null 2>&1 || { echo "zola not found; set \$ZOLA or install it (docs/development.md)" >&2; exit 2; }
-CHROME_BIN="${CHROME:-}"
-if [ -z "$CHROME_BIN" ]; then
-  for c in google-chrome google-chrome-stable chromium chromium-browser chrome-headless-shell; do
-    command -v "$c" >/dev/null 2>&1 && { CHROME_BIN="$c"; break; }
-  done
-fi
-[ -n "$CHROME_BIN" ] || { echo "Chrome/Chromium not found; set \$CHROME or install it (docs/development.md)" >&2; exit 2; }
+command -v uv >/dev/null 2>&1 || { echo "uv not found; install it (docs/development.md)" >&2; exit 2; }
 
 cd "$ROOT"
 
@@ -54,15 +47,14 @@ for _ in $(seq 1 50); do
   sleep 0.1
 done
 [ -n "$up" ] || { echo "PDF server did not come up on port $PORT" >&2; exit 1; }
-# The page Chrome will print must be the Resume (its <h1> comes from the built page).
+# The page WeasyPrint will render must be the Resume (its <h1> comes from the built page).
 EXPECTED=$(grep -oE '<h1[^>]*>[^<]+' "$OUT/${RESUME_PATH}index.html" | head -1 | sed -E 's/<[^>]*>//')
 [ -n "$EXPECTED" ] || { echo "no <h1> in built Resume page" >&2; exit 1; }
 python3 -c "import urllib.request,sys; sys.exit(0 if sys.argv[1] in urllib.request.urlopen('http://127.0.0.1:$PORT/$RESUME_PATH', timeout=5).read().decode() else 1)" "$EXPECTED" \
   || { echo "served Resume page does not contain '$EXPECTED'" >&2; exit 1; }
 mkdir -p "$OUT/$(dirname "$PDF_PATH")"
-"$CHROME_BIN" --headless --no-sandbox --disable-gpu --no-pdf-header-footer \
-  --print-to-pdf="$OUT/$PDF_PATH" "http://127.0.0.1:$PORT/$RESUME_PATH" >"$WORK/chrome.log" 2>&1 \
-  || { cat "$WORK/chrome.log" >&2; echo "Chrome failed to render the PDF" >&2; exit 1; }
+uv run --quiet scripts/resume-pdf.py "http://127.0.0.1:$PORT/$RESUME_PATH" "$OUT/$PDF_PATH" >"$WORK/pdf.log" 2>&1 \
+  || { cat "$WORK/pdf.log" >&2; echo "WeasyPrint failed to render the PDF" >&2; exit 1; }
 
 [ -s "$OUT/$PDF_PATH" ] && head -c 4 "$OUT/$PDF_PATH" | grep -q '%PDF' \
   || { echo "PDF was not generated at $OUT/$PDF_PATH" >&2; exit 1; }

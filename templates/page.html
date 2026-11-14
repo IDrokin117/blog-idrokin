@@ -15,12 +15,12 @@
   {% set series_page = get_page(path="series/" ~ series_slug ~ ".md") %}
   {% set series_title = series_page.title %}
 {% endif %}
-<article>
+<article class="post">
   {% if page.taxonomies.series %}
   <p class="series-label"><a href="{{ series_page.permalink | safe }}">{{ series_title }}</a> · Part {{ page.extra.part }} of {{ series_total }}</p>
   {% endif %}
   <h1>{{ page.title }}</h1>
-  <p class="meta"><time datetime="{{ page.date }}">{{ page.date }}</time></p>
+  <p class="meta"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>{% if page.reading_time %} · {{ page.reading_time }} min read{% endif %}</p>
   {{ page.content | safe }}
   {% if page.taxonomies.tags %}
   <p class="tags">

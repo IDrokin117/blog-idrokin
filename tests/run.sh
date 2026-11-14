@@ -182,11 +182,18 @@ lacks index.html 'projects' "no Projects link on home"
 lacks posts/index.html 'projects' "no Projects link on posts list"
 lacks rss.xml 'Hidden Project' "Projects not in feed"
 
-# Per-page scripts
+# External links open in a new tab, internal ones do not
+ext_no_target=$(grep -rhoE '<a [^>]*href="?https?://[^>]*>' "$OUT" --include=*.html | grep -v "$(grep -oE '^base_url *= *"https?://[^"/]+' "$ROOT/config.toml" | sed -E 's/.*"https?:\/\///')" | grep -vc 'target=')
+[ "$ext_no_target" -eq 0 ] && pass "external links open in a new tab" || fail "external links open in a new tab ($ext_no_target without target)"
+lacks index.html '<base[^>]*target' "internal links stay in the same tab"
+
+# Per-page scripts (site-wide palette switcher scripts, marked data-site, are excluded)
+page_scripts() { grep -o '<script[^>]*>' "$OUT/$1" | grep -vc 'data-site='; }
 has posts/with-script/index.html '<script src="?[^" >]*/js/demo\.js' "page declaring a script loads it"
-[ "$(grep -o '<script' "$OUT/posts/with-script/index.html" | wc -l)" -eq 1 ] && pass "scripted page loads only its own script" || fail "scripted page loads only its own script"
-lacks posts/hello-world/index.html '<script' "page without script loads no scripts"
-lacks index.html '<script' "home loads no scripts"
+[ "$(page_scripts posts/with-script/index.html)" -eq 1 ] && pass "scripted page loads only its own script" || fail "scripted page loads only its own script"
+[ "$(page_scripts posts/hello-world/index.html)" -eq 0 ] && pass "page without script loads no scripts" || fail "page without script loads no scripts"
+[ "$(page_scripts index.html)" -eq 0 ] && pass "home loads no scripts" || fail "home loads no scripts"
+has index.html 'class="?palette-switch' "header has palette switcher"
 
 # Domain, theme, language
 [ "$(cat "$ROOT/static/CNAME")" = "www.idrokin.com" ] && pass "CNAME unchanged" || fail "CNAME unchanged"
@@ -201,15 +208,15 @@ exists fonts/source-serif-4-normal.woff2 "serif font served from the site"
 exists fonts/source-serif-4-italic.woff2 "italic serif font served from the site"
 lacks style.css 'https?://' "no third-party URLs in the stylesheet"
 lacks index.html 'fonts\.(googleapis|gstatic)|https?://[^" ]*\.woff' "no third-party font requests in HTML"
-has style.css 'prefers-color-scheme: ?dark' "dark theme follows system preference"
+has style.css ':root\[data-palette="?cream' "light (cream) theme available via switcher"
 has style.css '@font-face' "fonts declared via @font-face"
 lacks style.css 'data-theme' "no theme toggle"
 has posts/hello-world/index.html 'class="?z-l-' "code highlighting is class-based"
 lacks posts/hello-world/index.html 'style="[^"]*color:' "no inline highlight colors"
 exists giallo-light.css "light highlight color set generated"
 exists giallo-dark.css "dark highlight color set generated"
-has posts/hello-world/index.html 'giallo-light.css[^>]*prefers-color-scheme: ?light|prefers-color-scheme: ?light[^>]*giallo-light.css' "light highlight set loaded for light scheme"
-has posts/hello-world/index.html 'giallo-dark.css[^>]*prefers-color-scheme: ?dark|prefers-color-scheme: ?dark[^>]*giallo-dark.css' "dark highlight set loaded for dark scheme"
+grep -o '<link[^>]*giallo-light\.css[^>]*>' "$OUT/posts/hello-world/index.html" | grep -q 'media="\?not all' && pass "light highlight set present, off by default" || fail "light highlight set present, off by default"
+grep -o '<link[^>]*giallo-dark\.css[^>]*>' "$OUT/posts/hello-world/index.html" | grep -Eq 'media="?all' && pass "dark highlight set active by default" || fail "dark highlight set active by default"
 has index.html 'name="?viewport' "viewport meta for phone width"
 
 echo

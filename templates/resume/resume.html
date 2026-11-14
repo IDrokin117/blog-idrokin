@@ -5,8 +5,8 @@
   <ul class="resume-contacts">
     {% if section.extra.location %}<li>{{ section.extra.location }}</li>{% endif %}
     {% if section.extra.email %}<li><a href="mailto:{{ section.extra.email }}">{{ section.extra.email }}</a></li>{% endif %}
-    {% if section.extra.github %}<li><a href="{{ section.extra.github }}">GitHub</a></li>{% endif %}
-    {% if section.extra.linkedin %}<li><a href="{{ section.extra.linkedin }}">LinkedIn</a></li>{% endif %}
+    {% if section.extra.github %}<li><a href="{{ section.extra.github }}" target="_blank" rel="noopener">GitHub</a></li>{% endif %}
+    {% if section.extra.linkedin %}<li><a href="{{ section.extra.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}
   </ul>
   <p class="resume-download"><a href="{{ get_url(path='files/resume.pdf') }}">Download PDF</a></p>
   <div class="resume-body">

@@ -16,9 +16,9 @@ Add a test case by adding fixture content under `tests/fixture/content` and a `h
 
 ## Resume PDF and deploy
 
-`scripts/build.sh` is the one local command: it builds the site into `public/`, runs `zola check --skip-external-links` (a broken internal link fails it), and renders the built Resume page to `public/files/resume.pdf` (stable URL `/files/resume.pdf`, linked from the Resume page as "Download PDF"). The PDF is never committed. It needs Zola (`$ZOLA` or `PATH`) and headless Chrome or Chromium (`$CHROME`, or `google-chrome`/`chromium` on `PATH`). The PDF look comes from the `@media print` rules in `sass/style.scss`.
+`scripts/build.sh` is the one local command: it builds the site into `public/`, runs `zola check --skip-external-links` (a broken internal link fails it), and renders the built Resume page to `public/files/resume.pdf` (stable URL `/files/resume.pdf`, linked from the Resume page as "Download PDF"). The PDF is never committed. It needs Zola (`$ZOLA` or `PATH`) and [uv](https://docs.astral.sh/uv/); the PDF is rendered by WeasyPrint through `uv run scripts/resume-pdf.py` (uv installs WeasyPrint itself; the system needs Pango, present on most Linux desktops/WSL). The PDF look comes from the `@media print` rules in `sass/style.scss`.
 
-Why headless Chrome: it is preinstalled on GitHub's `ubuntu-latest`, runs locally with no extra Python/system stack, and renders the real stylesheet with full modern CSS (WeasyPrint lags on CSS support and needs Pango). A local Chromium can also come from Playwright (`npx playwright-core install chromium-headless-shell`); point `$CHROME` at it.
+Why WeasyPrint: a Python package run through uv, no browser needed. It does not support every modern CSS feature (e.g. `clamp()`, media queries in `rem`), so print rules in `sass/style.scss` stay simple and set explicit values. See ADR 0002.
 
 The workflow `.github/workflows/zola.yml` runs: checkout, install pinned Zola (`ZOLA_VERSION`), `tests/run.sh`, `scripts/build.sh`, then (only on `main`) publish `public/` to the `gh-pages` branch. Pull requests build and check without publishing.
 

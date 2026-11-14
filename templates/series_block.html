@@ -5,7 +5,7 @@
 {% set_global shown = 0 %}
 {% for sp in ss.pages %}{% set needle = "|" ~ sp.slug ~ "|" %}{% if needle in names %}
 {% if shown == 0 %}<section class="series-block">
-  <h2>Series</h2>
+  <h2 class="section-title">Series</h2>
   <ul class="series-list">
 {% endif %}
     <li><a href="{{ sp.permalink | safe }}">{{ sp.title }}</a></li>
