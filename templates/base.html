@@ -3,8 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{% if page and page.title %}{{ page.title }}{% elif section and section.title %}{{ section.title }}{% else %}{{ config.title }}{% endif %}{% endblock %}</title>
-  <meta name="description" content="{% if page and page.description %}{{ page.description }}{% else %}{{ config.extra.description }}{% endif %}">
+  {% if current_path == "/" %}{% set page_title = config.title %}
+  {% elif page and page.title %}{% set page_title = page.title ~ " · " ~ config.title %}
+  {% elif section and section.title %}{% set page_title = section.title ~ " · " ~ config.title %}
+  {% else %}{% set page_title = config.title %}{% endif %}
+  {% if page and page.description %}{% set page_description = page.description %}
+  {% elif section and section.description %}{% set page_description = section.description %}
+  {% else %}{% set page_description = config.extra.description %}{% endif %}
+  <title>{% block title %}{{ page_title }}{% endblock %}</title>
+  <meta name="description" content="{{ page_description }}">
+  {% if page and page.extra.keywords %}<meta name="keywords" content="{{ page.extra.keywords }}">{% endif %}
   <meta name="author" content="{{ config.extra.author }}">
   <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
   <link rel="stylesheet" href="{{ get_url(path='giallo-light.css') }}" media="(prefers-color-scheme: light)">

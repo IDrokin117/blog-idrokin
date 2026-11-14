@@ -2,14 +2,17 @@
 {% block content %}
 {% if page.taxonomies.series %}
   {% set series_name = page.taxonomies.series[0] %}
-  {# Parts ordered by Part number; drafts are not in the taxonomy. Only the first series value counts. #}
+  {# Parts ordered by Part number (scripts/check-series.sh enforces an integer extra.part);
+     drafts are not in the taxonomy. Only the first series value counts. The series page is
+     matched by slug, like the other series templates. #}
   {% set series_term = get_taxonomy_term(kind="series", term=series_name) %}
+  {% set series_slug = series_term.slug %}
   {% set series_sorted = series_term.pages | sort(attribute="extra.part") %}
   {% set_global series_total = 0 %}
   {% for sp in series_sorted %}
     {% if sp.taxonomies.series[0] == series_name %}{% set_global series_total = series_total + 1 %}{% endif %}
   {% endfor %}
-  {% set series_page = get_page(path="series/" ~ series_name ~ ".md") %}
+  {% set series_page = get_page(path="series/" ~ series_slug ~ ".md") %}
   {% set series_title = series_page.title %}
 {% endif %}
 <article>

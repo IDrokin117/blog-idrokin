@@ -1,7 +1,8 @@
 name: Build and deploy GH Pages
 on:
   push:
-    branches: [main, redesign]
+    branches: [main]
+  pull_request:
 
 env:
   ZOLA_VERSION: "0.23.6"
