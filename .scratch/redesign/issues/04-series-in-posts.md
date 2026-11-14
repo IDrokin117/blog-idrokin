@@ -6,14 +6,14 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Fixture set includes a two-Part Series, a Series containing a draft Part, and a Post outside any Series
-- [ ] Series label shows correct name, Part N and total M, and links to the Series page
-- [ ] Prev/next links and the collapsed Parts list are present and correct
-- [ ] Parts are ordered by Part number even when dates are out of sequence
-- [ ] Draft Parts are excluded from the label's total, navigation, lists and Series page
-- [ ] A Post outside any Series shows no Series elements
-- [ ] The Series page shows title, description and ordered Parts
-- [ ] A Post assigned to more than one Series triggers a build warning
-- [ ] All of the above are automated checks on built output
+- [x] Fixture set includes a two-Part Series, a Series containing a draft Part, and a Post outside any Series
+- [x] Series label shows correct name, Part N and total M, and links to the Series page
+- [x] Prev/next links and the collapsed Parts list are present and correct
+- [x] Parts are ordered by Part number even when dates are out of sequence
+- [x] Draft Parts are excluded from the label's total, navigation, lists and Series page
+- [x] A Post outside any Series shows no Series elements
+- [x] The Series page shows title, description and ordered Parts
+- [x] A Post assigned to more than one Series triggers a build warning
+- [x] All of the above are automated checks on built output

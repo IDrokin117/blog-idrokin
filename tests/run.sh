@@ -42,6 +42,32 @@ has posts/index.html 'href="?[^" >]*/posts/standalone/' "posts list links posts"
 # Resume
 has resume/index.html 'Fixture resume body' "resume page renders"
 
+# Series
+S=posts/rust-part-one/index.html
+has $S 'Rust Intro</a> · Part 1 of 2' "series label shows name, part and total"
+has $S 'href="?[^" >]*/series/rust-intro/' "series label links to series page"
+has posts/rust-part-two/index.html 'Rust Intro</a> · Part 2 of 2' "part 2 label"
+has $S 'href="?[^" >]*/posts/rust-part-two/[^>]*>[^<]*Next' "part 1 links to next part"
+lacks $S 'Previous' "first part has no previous link"
+has posts/rust-part-two/index.html 'href="?[^" >]*/posts/rust-part-one/[^>]*>[^<]*Previous' "part 2 links to previous part"
+has $S '<details' "collapsed parts list present"
+order=$(tr -d '\n' <"$OUT/$S" | grep -oE '<details.*</details>' | grep -oE 'Rust Part (One|Two)' | paste -sd,)
+[ "$order" = "Rust Part One,Rust Part Two" ] && pass "parts ordered by part number not date" || fail "parts ordered by part number (got: $order)"
+lacks $S 'Rust Part Three' "draft part absent from navigation and list"
+exists series/rust-intro/index.html "series page exists"
+has series/rust-intro/index.html 'A gentle introduction to Rust' "series page shows description"
+has series/rust-intro/index.html '<h1[^>]*>Rust Intro</h1>' "series page shows title"
+sorder=$(tr -d '\n' <"$OUT/series/rust-intro/index.html" | grep -oE 'Rust Part (One|Two|Three)' | paste -sd,)
+[ "$sorder" = "Rust Part One,Rust Part Two" ] && pass "series page lists ordered published parts" || fail "series page order (got: $sorder)"
+has posts/drafty-one/index.html 'Drafty Series</a> · Part 1 of 2' "draft part excluded from total"
+lacks posts/drafty-one/index.html 'Drafty Two' "draft part absent from navigation"
+lacks series/drafty/index.html 'Drafty Two' "draft part absent from series page"
+lacks posts/standalone/index.html 'Part [0-9]+ of|<details' "post outside series has no series elements"
+has posts/double-series/index.html 'Drafty Series</a> · Part 9 of' "first series value is used"
+chk=$("$ROOT/scripts/check-series.sh" "$ROOT/tests/fixture/content" 2>&1)
+echo "$chk" | grep -q 'double-series' && pass "multi-series post triggers warning" || fail "multi-series post triggers warning"
+echo "$chk" | grep -q 'standalone\|rust-part-one' && fail "warning only for multi-series posts" || pass "warning only for multi-series posts"
+
 # Tags and feed
 exists tags/about/index.html "tag page exists"
 has tags/about/index.html 'Hello World' "tag page lists its post"
