@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 {% set series_name = page.slug %}
-{% set series_term = get_taxonomy_term(kind="series", term=series_name) %}
-{% set series_sorted = series_term.pages | sort(attribute="extra.part") %}
+{% set all_series = get_taxonomy(kind="series") %}
 <h1>{{ page.title }}</h1>
 {{ page.content | safe }}
 <ol class="series-parts">
-  {% for sp in series_sorted %}
+  {% for term in all_series.items %}{% if term.slug == series_name %}
+  {% for sp in term.pages | sort(attribute="extra.part") %}
   {% if sp.taxonomies.series[0] == series_name %}
   <li><a href="{{ sp.permalink | safe }}">{{ sp.title }}</a></li>
   {% endif %}
   {% endfor %}
+  {% endif %}{% endfor %}
 </ol>
 {% endblock %}
