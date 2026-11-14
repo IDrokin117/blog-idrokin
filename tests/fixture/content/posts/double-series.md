@@ -1,6 +1,6 @@
 +++
 title = "Double Series"
-date = 2025-10-05
+date = 2024-10-05
 
 [taxonomies]
 series = ["drafty", "rust-intro"]

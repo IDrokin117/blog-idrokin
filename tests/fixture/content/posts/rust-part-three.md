@@ -1,6 +1,6 @@
 +++
 title = "Rust Part Three Draft"
-date = 2025-09-20
+date = 2024-09-20
 draft = true
 
 [taxonomies]

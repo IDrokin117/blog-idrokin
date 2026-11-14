@@ -1,6 +1,6 @@
 +++
 title = "Rust Part One"
-date = 2025-09-10
+date = 2024-09-10
 
 [taxonomies]
 series = ["rust-intro"]
