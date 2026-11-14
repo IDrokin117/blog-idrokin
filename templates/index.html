@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ config.extra.author }}</h1>
+{{ section.content | safe }}
+{% set posts = get_section(path="posts/_index.md") %}
+<h2>Latest posts</h2>
+<ul class="post-list">
+  {% for p in posts.pages %}{% if loop.index <= 3 %}
+  <li><a href="{{ p.permalink | safe }}">{{ p.title }}</a> <time datetime="{{ p.date }}">{{ p.date }}</time></li>{% endif %}
+  {% endfor %}
+</ul>
+{% endblock %}

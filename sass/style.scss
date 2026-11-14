@@ -1,0 +1,13 @@
+// Single stylesheet. Typography, palette and themes arrive in the next ticket.
+body {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: serif;
+  line-height: 1.6;
+}
+
+nav a { margin-right: 1rem; }
+nav a.active { font-weight: bold; }
+img { max-width: 100%; }
+.post-list { list-style: none; padding: 0; }

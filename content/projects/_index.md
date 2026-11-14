@@ -27,9 +27,6 @@ paginate_path = "projects"
 # Options are "left", "right" and "none"
 insert_anchor_links = "none"
 
-# Whether the section pages should be in the search index. This is only used if
-# `build_search_index` is set to true in the config
-in_search_index = true
 
 # Whether to render that section homepage or not.
 # Useful when the section is only there to organize things but is not meant

@@ -6,14 +6,14 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] `pico` submodule and theme config removed; site has own templates and one Sass stylesheet
-- [ ] A single command builds the site; the test harness builds the fixture content set and runs assertions
-- [ ] Menu contains exactly Home, Posts, Resume
-- [ ] Blog section titled "Posts" consistently (config, section title, headings)
-- [ ] Search index, search widget, giscus config and widget are removed; no search or giscus assets in the build
-- [ ] RSS feed is generated and tags pages work
-- [ ] An existing Post URL is unchanged after the rebuild
-- [ ] Domain and CNAME unchanged
-- [ ] Site content and template text are English only
+- [x] `pico` submodule and theme config removed; site has own templates and one Sass stylesheet
+- [x] A single command builds the site; the test harness builds the fixture content set and runs assertions
+- [x] Menu contains exactly Home, Posts, Resume
+- [x] Blog section titled "Posts" consistently (config, section title, headings)
+- [x] Search index, search widget, giscus config and widget are removed; no search or giscus assets in the build
+- [x] RSS feed is generated and tags pages work
+- [x] An existing Post URL is unchanged after the rebuild
+- [x] Domain and CNAME unchanged
+- [x] Site content and template text are English only
