@@ -6,10 +6,10 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] One markdown file is the only source of Resume content; old HTML resume markup is removed
-- [ ] Contacts come from front matter and render on the page
-- [ ] Summary, Experience, Skills, Education sections render from markdown (automated check on the fixture and the real Resume)
-- [ ] Existing resume content is preserved (moved, not edited)
-- [ ] Print stylesheet yields a clean single-flow document (reviewed manually via browser print preview)
+- [x] One markdown file is the only source of Resume content; old HTML resume markup is removed
+- [x] Contacts come from front matter and render on the page
+- [x] Summary, Experience, Skills, Education sections render from markdown (automated check on the fixture and the real Resume)
+- [x] Existing resume content is preserved (moved, not edited)
+- [x] Print stylesheet yields a clean single-flow document (reviewed manually via browser print preview)

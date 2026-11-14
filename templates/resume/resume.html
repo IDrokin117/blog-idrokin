@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Resume</h1>
-<div class="resume-body">
-  {{ section.content | safe }}
-</div>
+<article class="resume">
+  <h1>{{ section.extra.name | default(value=section.title) }}</h1>
+  <ul class="resume-contacts">
+    {% if section.extra.location %}<li>{{ section.extra.location }}</li>{% endif %}
+    {% if section.extra.email %}<li><a href="mailto:{{ section.extra.email }}">{{ section.extra.email }}</a></li>{% endif %}
+    {% if section.extra.github %}<li><a href="{{ section.extra.github }}">GitHub</a></li>{% endif %}
+    {% if section.extra.linkedin %}<li><a href="{{ section.extra.linkedin }}">LinkedIn</a></li>{% endif %}
+  </ul>
+  <div class="resume-body">
+    {{ section.content | safe }}
+  </div>
+</article>
 {% endblock %}
