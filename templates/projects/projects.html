@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{ section.title }}</h1>
-<ul class="post-list">
+{{ section.content | safe }}
+<ul class="project-list">
   {% for p in section.pages %}
-  <li><a href="{{ p.permalink | safe }}">{{ p.title }}</a>{% if p.description %} <span>{{ p.description }}</span>{% endif %}</li>
+  <li>
+    <a href="{{ p.permalink | safe }}">{{ p.title }}</a>
+    {% if p.description %}<span class="summary">{{ p.description }}</span>{% endif %}
+    {% if p.extra.stack %}<span class="stack">{{ p.extra.stack | join(sep=", ") }}</span>{% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% endblock %}

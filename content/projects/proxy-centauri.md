@@ -1,19 +1,13 @@
 +++
 title = "Proxy Centauri"
 date = 2025-07-14
-description = "Proxy server traces traffic usage"
-draft = false
-
-[taxonomies]
-tags = ["about"]
-
+description = "Proxy server that traces traffic usage."
+draft = true
 
 [extra]
-show_copyright = true
-show_comments = false
-show_shares = false
-keywords = "project,proxy,oss"
+# status: "active" or "archived"; demo is optional
+status = "active"
+stack = ["Rust"]
+repo = "https://github.com/LyricalToxic/proxy-centauri"
 +++
-# Proxy Centauri
-
-...
+Details about the project.

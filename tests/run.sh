@@ -72,6 +72,19 @@ absent js/search.js "no search script"
 lacks index.html 'search|giscus' "no search or giscus markup on home"
 lacks posts/hello-world/index.html 'search|giscus' "no search or giscus markup on post"
 
+# Projects hidden
+absent projects/index.html "no Projects page in built output"
+absent projects/hidden/index.html "draft Project page not built"
+lacks index.html 'projects' "no Projects link on home"
+lacks posts/index.html 'projects' "no Projects link on posts list"
+lacks rss.xml 'Hidden Project' "Projects not in feed"
+
+# Per-page scripts
+has posts/with-script/index.html '<script src="?[^" >]*/js/demo\.js' "page declaring a script loads it"
+[ "$(grep -o '<script' "$OUT/posts/with-script/index.html" | wc -l)" -eq 1 ] && pass "scripted page loads only its own script" || fail "scripted page loads only its own script"
+lacks posts/hello-world/index.html '<script' "page without script loads no scripts"
+lacks index.html '<script' "home loads no scripts"
+
 # Domain, theme, language
 [ "$(cat "$ROOT/static/CNAME")" = "www.idrokin.com" ] && pass "CNAME unchanged" || fail "CNAME unchanged"
 grep -q 'base_url = "https://www.idrokin.com/"' "$ROOT/config.toml" && pass "base_url unchanged" || fail "base_url unchanged"

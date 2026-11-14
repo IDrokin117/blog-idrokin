@@ -6,10 +6,10 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] No Projects page or link exists in the built output (automated check)
-- [ ] Sample Project page is a draft
-- [ ] Project page and list templates exist for the defined format and are verified by temporarily revealing Projects
-- [ ] The way to reveal Projects is documented in one place
-- [ ] A page with a script declared in front matter loads only that script; pages without it load no scripts (automated check)
+- [x] No Projects page or link exists in the built output (automated check)
+- [x] Sample Project page is a draft
+- [x] Project page and list templates exist for the defined format and are verified by temporarily revealing Projects
+- [x] The way to reveal Projects is documented in one place
+- [x] A page with a script declared in front matter loads only that script; pages without it load no scripts (automated check)
