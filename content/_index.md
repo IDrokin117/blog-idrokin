@@ -1,7 +1,7 @@
 +++
 title = "Homepage"
 
-description = "Page description"
+description = "Senior software engineer with a pragmatist streak. Python & Rust. Engineering, philosophy, and notes from the margins."
 
 # Whether to sort pages by "date", "weight", or "none". More on that below
 sort_by = "none"
@@ -60,5 +60,14 @@ show_shares = false
 index = true
 show_copyright = true
 +++
-Senior software engineer and team lead with five years of experience in Python and Rust, building data processing systems and backend services on AWS. I write here about what I build and learn along the way.
+I'm Igor, a senior software engineer with a pragmatist streak. I came from data engineering to backend, with a detour through linters. I treat building software as ongoing inquiry: try, observe the consequences, revise. This blog is the lab notebook: engineering, philosophy, and notes from the margins.
 
+## Working beliefs
+
+<!-- Each belief has a page in content/beliefs/; draft captions are in comments there. -->
+
+- [AI Realist](@/beliefs/ai-realist.md)
+- [Code Ironist](@/beliefs/code-ironist.md)
+- [Async Lingerer](@/beliefs/async-lingerer.md)
+- [Design Fallibilist](@/beliefs/design-fallibilist.md)
+- [Type Inferentialist](@/beliefs/type-inferentialist.md)

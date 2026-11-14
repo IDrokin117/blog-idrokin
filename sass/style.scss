@@ -241,25 +241,32 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: var(--s7) 0; }
 }
 .about { font-size: 1.2rem; color: var(--fg-soft); }
 .about p:last-child { margin-bottom: 0; }
+.about ul { list-style: none; padding: 0; margin: 0; font-family: var(--sans); font-size: 1rem; }
+.about li { padding: 0.15rem 0; }
+.about li::before { content: "›"; color: var(--accent); font-weight: 700; margin-right: 0.6rem; }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s2);
-  margin: var(--s5) 0 0;
+  margin: var(--s3) 0 0;
   font-family: var(--sans);
 }
 .links a {
   padding: 0.4rem 0.9rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--accent);
   border-radius: 999px;
+  background: var(--accent-soft);
   color: var(--fg);
   font-size: 0.9rem;
+  font-weight: 600;
   text-decoration: none;
+  transition: background 0.15s, color 0.15s;
 }
-.links a:hover { border-color: var(--accent); color: var(--accent); }
+.links a:hover { background: var(--accent); color: var(--bg); }
 
-.section-title {
+.section-title,
+.about h2 {
   margin: var(--s7) 0 var(--s3);
   font-family: var(--sans);
   font-size: 0.8rem;
@@ -268,6 +275,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: var(--s7) 0; }
   text-transform: uppercase;
   color: var(--muted);
 }
+.about h2 { font-size: 1rem; color: var(--accent); }
 
 /* ---------- Lists of posts / series ---------- */
 

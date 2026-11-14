@@ -14,6 +14,14 @@
   <meta name="description" content="{{ page_description }}">
   {% if page and page.extra.keywords %}<meta name="keywords" content="{{ page.extra.keywords }}">{% endif %}
   <meta name="author" content="{{ config.extra.author }}">
+  {% if page %}{% set og_url = page.permalink %}{% elif section %}{% set og_url = section.permalink %}{% else %}{% set og_url = config.base_url %}{% endif %}
+  <meta property="og:site_name" content="{{ config.extra.author }}">
+  <meta property="og:title" content="{% if current_path == "/" %}{{ config.extra.author }}{% else %}{{ page_title }}{% endif %}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:type" content="{% if page %}article{% else %}website{% endif %}">
+  <meta property="og:url" content="{{ og_url }}">
+  <meta property="og:image" content="{{ get_url(path=config.extra.avatar_src) }}">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
   <link rel="stylesheet" id="hl-light" href="{{ get_url(path='giallo-light.css') }}" media="not all">
   <link rel="stylesheet" id="hl-dark" href="{{ get_url(path='giallo-dark.css') }}" media="all">
