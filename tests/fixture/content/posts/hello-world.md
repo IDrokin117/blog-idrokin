@@ -7,3 +7,7 @@ description = "About me and my blog"
 tags = ["about"]
 +++
 Hello body text.
+
+```rust
+fn main() { let x = 1; }
+```

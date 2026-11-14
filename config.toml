@@ -16,9 +16,11 @@ taxonomies = [
 ]
 
 [markdown]
-# Syntax highlighting theme is refined in the typography and themes ticket
+# Class-based highlighting; colors live in sass/style.scss (light and dark sets)
 [markdown.highlighting]
-theme = "github-light"
+style = "class"
+light_theme = "solarized-light"
+dark_theme = "solarized-dark"
 
 [extra]
 author = "Igor Drokin"
