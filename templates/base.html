@@ -19,5 +19,6 @@
 {% block content %}{% endblock %}
 </main>
 {% include "footer.html" %}
+{% if page and page.extra.script %}<script src="{{ get_url(path=page.extra.script) }}"></script>{% endif %}
 </body>
 </html>

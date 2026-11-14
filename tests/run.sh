@@ -41,6 +41,63 @@ has posts/index.html 'href="?[^" >]*/posts/standalone/' "posts list links posts"
 
 # Resume
 has resume/index.html 'Fixture resume body' "resume page renders"
+has resume/index.html 'href="?mailto:fixture@example.com[" >]' "resume shows email from front matter"
+has resume/index.html 'href="?https://github.com/fixture[" >]' "resume shows GitHub from front matter"
+has resume/index.html 'href="?https://www.linkedin.com/in/fixture/[" >]' "resume shows LinkedIn from front matter"
+has resume/index.html 'Fixtureland' "resume shows location from front matter"
+for h in Summary Experience Skills Education; do
+  has resume/index.html "<h2[^>]*>$h</h2>" "resume renders $h section from markdown"
+done
+# Real resume: single markdown source with contacts in front matter and the four sections
+REAL="$ROOT/content/resume/_index.md"
+for h in Summary Experience Skills Education; do
+  grep -Eq "^## $h\s*$" "$REAL" && pass "real resume has $h heading" || fail "real resume has $h heading"
+done
+for k in email github linkedin location; do
+  awk '/^\+\+\+/{n++} n==1' "$REAL" | grep -Eq "^$k *=" && pass "real resume front matter has $k" || fail "real resume front matter has $k"
+done
+{ ! grep -Eq '<(a|div|ul|section) ' "$REAL" 2>/dev/null; } && pass "real resume has no HTML markup" || fail "real resume has no HTML markup"
+
+# Home page (links must be in the page body, not only in the header or footer)
+home_main=$(tr -d '\n' <"$OUT/index.html" | grep -oE '<main[^>]*>.*</main>')
+in_home() { printf '%s' "$home_main" | grep -Eq -- "$1" && pass "$2" || fail "$2"; }
+has index.html '<h1[^>]*>Igor Drokin</h1>' "home shows the author name"
+in_home '<img[^>]*avatar' "home shows an avatar"
+in_home 'href="?[^" >]*/resume/?[" >]' "home links to Resume"
+in_home 'href="?https://github\.com/[^" >]+' "home links to GitHub"
+in_home 'href="?https://www\.linkedin\.com/[^" >]+' "home links to LinkedIn"
+in_home 'href="?mailto:[^" >]+' "home links to Email"
+home_posts=$(grep -oE 'href="?[^" >]*/posts/[a-z-]+/' "$OUT/index.html" | sed -E 's#.*/posts/([a-z-]+)/#\1#' | paste -sd,)
+[ "$home_posts" = "latest-four,latest-three,standalone" ] && pass "home lists exactly the three latest posts, newest first" || fail "home lists exactly the three latest posts, newest first (got: $home_posts)"
+avatar_file=$(ls "$ROOT"/static/images/avatar.* 2>/dev/null | head -1)
+avatar_kb=$(( $(stat -c %s "$avatar_file") / 1024 ))
+[ "$avatar_kb" -lt 200 ] && pass "avatar under 200 KB" || fail "avatar under 200 KB (${avatar_kb} KB)"
+
+# Series
+S=posts/rust-part-one/index.html
+has $S 'Rust Intro</a> · Part 1 of 2' "series label shows name, part and total"
+has $S 'href="?[^" >]*/series/rust-intro/' "series label links to series page"
+has posts/rust-part-two/index.html 'Rust Intro</a> · Part 2 of 2' "part 2 label"
+has $S 'href="?[^" >]*/posts/rust-part-two/[^>]*>[^<]*Next' "part 1 links to next part"
+lacks $S 'Previous' "first part has no previous link"
+has posts/rust-part-two/index.html 'href="?[^" >]*/posts/rust-part-one/[^>]*>[^<]*Previous' "part 2 links to previous part"
+has $S '<details' "collapsed parts list present"
+order=$(tr -d '\n' <"$OUT/$S" | grep -oE '<details.*</details>' | grep -oE 'Rust Part (One|Two)' | paste -sd,)
+[ "$order" = "Rust Part One,Rust Part Two" ] && pass "parts ordered by part number not date" || fail "parts ordered by part number (got: $order)"
+lacks $S 'Rust Part Three' "draft part absent from navigation and list"
+exists series/rust-intro/index.html "series page exists"
+has series/rust-intro/index.html 'A gentle introduction to Rust' "series page shows description"
+has series/rust-intro/index.html '<h1[^>]*>Rust Intro</h1>' "series page shows title"
+sorder=$(tr -d '\n' <"$OUT/series/rust-intro/index.html" | grep -oE 'Rust Part (One|Two|Three)' | paste -sd,)
+[ "$sorder" = "Rust Part One,Rust Part Two" ] && pass "series page lists ordered published parts" || fail "series page order (got: $sorder)"
+has posts/drafty-one/index.html 'Drafty Series</a> · Part 1 of 2' "draft part excluded from total"
+lacks posts/drafty-one/index.html 'Drafty Two' "draft part absent from navigation"
+lacks series/drafty/index.html 'Drafty Two' "draft part absent from series page"
+lacks posts/standalone/index.html 'Part [0-9]+ of|<details' "post outside series has no series elements"
+has posts/double-series/index.html 'Drafty Series</a> · Part 9 of' "first series value is used"
+chk=$("$ROOT/scripts/check-series.sh" "$ROOT/tests/fixture/content" 2>&1)
+echo "$chk" | grep -q 'double-series' && pass "multi-series post triggers warning" || fail "multi-series post triggers warning"
+echo "$chk" | grep -q 'standalone\|rust-part-one' && fail "warning only for multi-series posts" || pass "warning only for multi-series posts"
 
 # Tags and feed
 exists tags/about/index.html "tag page exists"
@@ -55,6 +112,19 @@ absent search_index.en.js "no search index"
 absent js/search.js "no search script"
 lacks index.html 'search|giscus' "no search or giscus markup on home"
 lacks posts/hello-world/index.html 'search|giscus' "no search or giscus markup on post"
+
+# Projects hidden
+absent projects/index.html "no Projects page in built output"
+absent projects/hidden/index.html "draft Project page not built"
+lacks index.html 'projects' "no Projects link on home"
+lacks posts/index.html 'projects' "no Projects link on posts list"
+lacks rss.xml 'Hidden Project' "Projects not in feed"
+
+# Per-page scripts
+has posts/with-script/index.html '<script src="?[^" >]*/js/demo\.js' "page declaring a script loads it"
+[ "$(grep -o '<script' "$OUT/posts/with-script/index.html" | wc -l)" -eq 1 ] && pass "scripted page loads only its own script" || fail "scripted page loads only its own script"
+lacks posts/hello-world/index.html '<script' "page without script loads no scripts"
+lacks index.html '<script' "home loads no scripts"
 
 # Domain, theme, language
 [ "$(cat "$ROOT/static/CNAME")" = "www.idrokin.com" ] && pass "CNAME unchanged" || fail "CNAME unchanged"
