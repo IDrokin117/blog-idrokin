@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% set series_name = page.slug %}
+{% set all_series = get_taxonomy(kind="series") %}
+<h1>{{ page.title }}</h1>
+{{ page.content | safe }}
+<ol class="series-parts">
+  {% for term in all_series.items %}{% if term.slug == series_name %}
+  {% for sp in term.pages | sort(attribute="extra.part") %}
+  {% if sp.taxonomies.series[0] == series_name %}
+  <li><a href="{{ sp.permalink | safe }}">{{ sp.title }}</a></li>
+  {% endif %}
+  {% endfor %}
+  {% endif %}{% endfor %}
+</ol>
+{% endblock %}

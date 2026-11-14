@@ -1,0 +1,16 @@
+{% set live = get_taxonomy(kind="series") %}
+{% set names = "|" %}
+{% for t in live.items %}{% set_global names = names ~ t.slug ~ "|" %}{% endfor %}
+{% set ss = get_section(path="series/_index.md") %}
+{% set_global shown = 0 %}
+{% for sp in ss.pages %}{% set needle = "|" ~ sp.slug ~ "|" %}{% if needle in names %}
+{% if shown == 0 %}<section class="series-block">
+  <h2 class="section-title">Series</h2>
+  <ul class="series-list">
+{% endif %}
+    <li><a href="{{ sp.permalink | safe }}">{{ sp.title }}</a></li>
+{% set_global shown = shown + 1 %}
+{% endif %}{% endfor %}
+{% if shown > 0 %}  </ul>
+</section>
+{% endif %}

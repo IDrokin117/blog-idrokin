@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="intro">
+  <div class="intro-head">
+    <img class="avatar" src="{{ get_url(path=config.extra.avatar_src) }}" alt="Portrait of {{ config.extra.author }}" width="96" height="96">
+    <div>
+      <h1>{{ config.extra.author }}</h1>
+      <p class="intro-role">Senior Software Engineer · Python &amp; Rust</p>
+    </div>
+  </div>
+  <div class="about">{{ section.content | safe }}</div>
+  <p class="links">
+    <a href="{{ get_url(path='resume/') }}">Resume</a>
+    <a href="{{ config.extra.github }}" target="_blank" rel="noopener">GitHub</a>
+    <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:{{ config.extra.email }}">Email</a>
+  </p>
+</section>
+{% set posts = get_section(path="posts/_index.md") %}
+{% include "series_block.html" %}
+<h2 class="section-title">Latest posts</h2>
+<ul class="post-list">
+  {# section.pages is sorted by date, newest first (posts/_index.md sort_by = "date") #}
+  {% for p in posts.pages[:3] %}
+  <li><a href="{{ p.permalink | safe }}">{{ p.title }}</a><time datetime="{{ p.date }}">{{ p.date | date(format="%b %-d, %Y") }}</time></li>
+  {% endfor %}
+</ul>
+{% endblock %}

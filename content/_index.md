@@ -33,9 +33,6 @@ paginate_path = "page"
 # Options are "left", "right" and "none"
 insert_anchor_links = "none"
 
-# Whether the section pages should be in the search index. This is only used if
-# `build_search_index` is set to true in the config
-in_search_index = true
 
 # Whether to render that section homepage or not.
 # Useful when the section is only there to organize things but is not meant
@@ -63,8 +60,5 @@ show_shares = false
 index = true
 show_copyright = true
 +++
-I am Igor Drokin, a programmer who loves coding in Python and Rust. 
-Here you can find some brilliant blog posts(maybe even essays), my social links and other stuff.  
-
-[Email](mailto:drokinii1017+blog@gmail.com) me if you have any questions or offers.
+Senior software engineer and team lead with five years of experience in Python and Rust, building data processing systems and backend services on AWS. I write here about what I build and learn along the way.
 

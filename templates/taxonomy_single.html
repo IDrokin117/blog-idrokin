@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Posts tagged "{{ term.name }}"</h1>
+<ul class="post-list">
+  {% for p in term.pages %}
+  <li><a href="{{ p.permalink | safe }}">{{ p.title }}</a><time datetime="{{ p.date }}">{{ p.date | date(format="%b %-d, %Y") }}</time></li>
+  {% endfor %}
+</ul>
+{% endblock %}
