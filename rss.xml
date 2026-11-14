@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>IDrokin</title>
+      <link>https://www.idrokin.com/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://www.idrokin.com/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 14 Jul 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Hello World</title>
+          <pubDate>Mon, 14 Jul 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/posts/hello-world/</link>
+          <guid>https://www.idrokin.com/posts/hello-world/</guid>
+          <description xml:base="https://www.idrokin.com/posts/hello-world/">&lt;h1 id=&quot;hello-world&quot;&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;Yet another &quot;Hello, World!&quot; ...&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;https://www.idrokin.com/images/hello_world_meme.jpg&quot; /&gt;&lt;/div&gt;
+</description>
+      </item>
+    </channel>
+</rss>
