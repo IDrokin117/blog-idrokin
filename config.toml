@@ -31,7 +31,10 @@ top_menu = [
 ]
 
 copyright_string = "Created by Igor Drokin in 2025 – %YEAR%. Powered by [zola](https://getzola.org/)."
-avatar_src = "images/avatar.png"
+avatar_src = "images/avatar.webp"
+email = "drokinii1017@gmail.com"
+github = "https://github.com/IDrokin117"
+linkedin = "https://www.linkedin.com/in/igor-drokin-822233227/"
 
 [extra.footer.icons]
 github = "https://github.com/LyricalToxic"

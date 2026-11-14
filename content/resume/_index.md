@@ -1,88 +1,39 @@
 +++
 title = "Resume"
-
 description = "Resume"
-
-# Template to use to render this section page
 template = "resume/resume.html"
-
-# If set, will be the path used by paginated page and the page number will be appended after it.
-# For example the default would be page/1
 paginate_path = "resume"
-
-# Whether to insert a link for each header like the ones you can see in this site if you hover one
-# The default template can be overridden by creating a `anchor-link.html` in the `templates` directory
-# Options are "left", "right" and "none"
 insert_anchor_links = "none"
-
-
-# Whether to render that section homepage or not.
-# Useful when the section is only there to organize things but is not meant
-# to be used directly
 render = true
-
-# Whether to redirect when landing on that section. Defaults to not being set.
-# Useful for the same reason as `render` but when you don't want a 404 when
-# landing on the root section page.
-# Example: redirect_to = "documentation/content/overview"
-# redirect_to = "/"
-
-# Whether the section should pass its pages on to the parent section. Defaults to `false`.
-# Useful when the section shouldn't split up the parent section, like
-# sections for each year under a posts section.
 transparent = false
-
-# Use aliases if you are moving content but want to redirect previous URLs to the
-# current one. This takes an array of path, not URLs.
 aliases = []
 
-# Your own data
 [extra]
-show_shares = false
-show_copyright = true
+name = "Igor Drokin"
+email = "drokinii1017@gmail.com"
+github = "https://github.com/IDrokin117"
+linkedin = "https://www.linkedin.com/in/igor-drokin-822233227/"
+location = "Ukraine"
+website = "https://www.idrokin.com"
 +++
 
-[//]: # (# Resume)
+## Summary
+
 Welcome to Igor Drokin resume! I am a Senior Software Engineer and Team Lead with 5+ years of experience in Python and Rust development. 
 I specialize in building high-scale data processing systems, leading engineering teams, and deploying production solutions on AWS infrastructure. 
 My expertise includes web scraping, ETL pipelines, cloud infrastructure management and backend development.
 You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 
-[//]: # (# Narrative)
+**Core Competencies**
 
-[//]: # (Coming soon ...)
-
-# Core Competencies
 - Build automated systems for data collection, transformation and aggregation
 - Mentoring and leading small teams
 - Contributed to static analysis tools and type checkers for Python ([ruff](https://github.com/astral-sh/ruff), [pyrefly](https://github.com/facebook/pyrefly))
 - Python mastery, Rust enjoyer
 
-## Tech Stack
-- Core Frameworks: Litestar/FastAPI, Scrapy, Playwright/Selenium, Actix/Axum
-- Data & Analytics: Pandas, Jupyter Notebooks
-- Infrastructure: Docker, K8s, CloudFormation, SAM, AWS CDK
-- DevOps: ArgoCD, GitLab CI/CD, Grafana, Metabase
-- Cloud: AWS(EC2, RDS, SQS, S3, Lambda, DynamoDB, API Gateway, Step Functions)
-- Databases: MySQL, PostgreSQL, MongoDB, DynamoDB
-- Message Brokers: RabbitMQ, Redis, SQS, Kafka
+## Experience
 
-## Programming Languages
-- Python: 6+ years experience (5+ years professional)
-- Rust: 2.5 years experience
-
-## Languages
-- Russian: Native
-- Ukrainian: Native
-- English: B2
-
-# Education
-- 2019-2024 Bachelor's Degree in Software Engineering
-  **National University "Zaporizhzhia Polytechnic"**
-
-# Professional Experience
-
-## GroupBWT
+### GroupBWT
 **Team Lead | Project Lead | Data Scientist** (July 2020 - July 2025)  
 
 Designed and implemented high-scale data processing systems handling millions of records daily. Focused on  providing insights based on web data. Key responsibilities included
@@ -94,11 +45,29 @@ Designed and implemented high-scale data processing systems handling millions of
 - **Led and mentored teams of 3-5 engineers**, growing 4 trainee developers to mid-level positions while delivering 15+ data collection projects
 - **Implemented ETL pipelines** for automated data processing, reducing manual work by 80% and processing data 3x faster than previous solutions
 
-Company website: <a href="https://groupbwt.com/" target="_blank">https://groupbwt.com/</a>
+Company website: <https://groupbwt.com/>
 
-# Contact Information
-- Name: Igor Drokin
-- Email: <a href="mailto:drokinii1017@gmail.com">drokinii1017@gmail.com</a>
-- LinkedIn: <a href="https://www.linkedin.com/in/igor-drokin-822233227/" target="_blank">https://www.linkedin.com/in/igor-drokin-822233227/</a>
-- GitHub: <a href="https://github.com/IDrokin117" target="_blank">https://github.com/IDrokin117</a>
-- Personal Blog: <a href="https://www.idrokin.com" target="_blank">https://www.idrokin.com</a> 
+## Skills
+
+### Tech Stack
+- Core Frameworks: Litestar/FastAPI, Scrapy, Playwright/Selenium, Actix/Axum
+- Data & Analytics: Pandas, Jupyter Notebooks
+- Infrastructure: Docker, K8s, CloudFormation, SAM, AWS CDK
+- DevOps: ArgoCD, GitLab CI/CD, Grafana, Metabase
+- Cloud: AWS(EC2, RDS, SQS, S3, Lambda, DynamoDB, API Gateway, Step Functions)
+- Databases: MySQL, PostgreSQL, MongoDB, DynamoDB
+- Message Brokers: RabbitMQ, Redis, SQS, Kafka
+
+### Programming Languages
+- Python: 6+ years experience (5+ years professional)
+- Rust: 2.5 years experience
+
+### Languages
+- Russian: Native
+- Ukrainian: Native
+- English: B2
+
+## Education
+
+- 2019-2024 Bachelor's Degree in Software Engineering
+  **National University "Zaporizhzhia Polytechnic"**

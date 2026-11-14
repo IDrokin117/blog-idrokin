@@ -11,3 +11,25 @@ nav a { margin-right: 1rem; }
 nav a.active { font-weight: bold; }
 img { max-width: 100%; }
 .post-list { list-style: none; padding: 0; }
+
+.resume-contacts {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+@media print {
+  header, footer, nav { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  main { max-width: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: none; }
+  .resume-body h2 { break-after: avoid; }
+  .resume-body h3, .resume-body li { break-inside: avoid; }
+}
+
+.intro-head { display: flex; align-items: center; gap: 1rem; }
+.intro-head h1 { margin: 0; }
+.avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; }
+.links a { margin-right: 1rem; }
