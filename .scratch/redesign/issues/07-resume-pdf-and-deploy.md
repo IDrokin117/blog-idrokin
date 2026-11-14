@@ -6,13 +6,13 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 01, 06
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Resume page has a "Download PDF" link pointing to a stable URL
-- [ ] The PDF exists in the built output at that URL (automated check)
-- [ ] One local command builds the site and produces the PDF
-- [ ] Workflow runs checkout, Zola install, build, link check, PDF, publish to `gh-pages`; the old deploy action is gone
-- [ ] Broken internal links fail the pipeline before publishing
-- [ ] Domain, CNAME and deploy branch unchanged
-- [ ] Committed `resume.pdf` removed
-- [ ] The PDF's look is reviewed manually
+- [x] Resume page has a "Download PDF" link pointing to a stable URL
+- [x] The PDF exists in the built output at that URL (automated check)
+- [x] One local command builds the site and produces the PDF
+- [x] Workflow runs checkout, Zola install, build, link check, PDF, publish to `gh-pages`; the old deploy action is gone
+- [x] Broken internal links fail the pipeline before publishing
+- [x] Domain, CNAME and deploy branch unchanged
+- [x] Committed `resume.pdf` removed
+- [ ] The PDF's look is reviewed manually (owner)

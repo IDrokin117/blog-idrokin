@@ -14,9 +14,17 @@ The site is built with [Zola](https://www.getzola.org/) (tested with 0.23.6). In
 
 Add a test case by adding fixture content under `tests/fixture/content` and a `has`/`lacks`/`exists`/`absent` line in `tests/run.sh`.
 
-## Known issue
+## Resume PDF and deploy
 
-Zola 0.23.6 fails to render the `draw_image` shortcode used in `content/posts/hello-world.md` ("Unknown function `draw_image`"), even for a trivial shortcode in a scratch project. Not investigated further; the deploy action may use a different Zola version.
+`scripts/build.sh` is the one local command: it builds the site into `public/`, runs `zola check --skip-external-links` (a broken internal link fails it), and renders the built Resume page to `public/files/resume.pdf` (stable URL `/files/resume.pdf`, linked from the Resume page as "Download PDF"). The PDF is never committed. It needs Zola (`$ZOLA` or `PATH`) and headless Chrome or Chromium (`$CHROME`, or `google-chrome`/`chromium` on `PATH`). The PDF look comes from the `@media print` rules in `sass/style.scss`.
+
+Why headless Chrome: it is preinstalled on GitHub's `ubuntu-latest`, runs locally with no extra Python/system stack, and renders the real stylesheet with full modern CSS (WeasyPrint lags on CSS support and needs Pango). A local Chromium can also come from Playwright (`npx playwright-core install chromium-headless-shell`); point `$CHROME` at it.
+
+The workflow `.github/workflows/zola.yml` runs: checkout, install pinned Zola (`ZOLA_VERSION`), `tests/run.sh`, `scripts/build.sh`, then (only on `main`) publish `public/` to the `gh-pages` branch. Pushes to `redesign` build and check without publishing.
+
+## Content components (no shortcodes)
+
+Zola 0.23 removed shortcodes (that was the cause of the old "Unknown function `draw_image`" error). Reusable snippets are Tera components in `templates/components.html`, used in markdown as `{{ <draw_image path="images/x.jpg" base_url={config.base_url} /> }}`. Components cannot read `config`, so pass what they need explicitly.
 
 ## Revealing Projects
 
