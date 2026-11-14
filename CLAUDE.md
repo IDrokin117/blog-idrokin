@@ -15,3 +15,7 @@ Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-
 ### Domain docs
 
 Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+## Development
+
+Zola site with its own templates (no theme). Build: `scripts/build.sh` (site, internal link check, Resume PDF via headless Chrome into `public/files/resume.pdf`); tests: `tests/run.sh`; preview: `zola serve`. Zola 0.23 has no shortcodes, use components from `templates/components.html`. Projects are hidden and are revealed via config; per-page scripts via `extra.script`. Details in `docs/development.md`; decisions in `docs/adr/`.
