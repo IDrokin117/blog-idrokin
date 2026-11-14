@@ -39,3 +39,7 @@ Project front matter: `title`, `description` (one-line summary), `extra.stack` (
 ## Per-page scripts
 
 There is no site-wide script bundle. A page loads a script only if its front matter declares `extra.script = "js/name.js"` (path relative to `static/`).
+
+## Series
+
+A Series is a content page `content/series/<slug>.md` (title, description) rendered with `series_page.html`. The `series` taxonomy is declared in `config.toml` with `render = false`: it only groups Posts and has no pages of its own. A Post joins one Series with `taxonomies = { series = ["<slug>"] }` and sets its position with `extra.part = N`. Parts are ordered by that number, and drafts are excluded.

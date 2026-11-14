@@ -8,7 +8,7 @@ Parent: `.scratch/redesign/spec.md`
 
 **Status:** ready-for-agent
 
-- [ ] Two ADRs under `docs/adr/` following the project's domain docs conventions
-- [ ] Build, test and PDF commands documented
-- [ ] No documentation mentions `pico`, search or giscus as current
-- [ ] All text in English
+- [x] Two ADRs under `docs/adr/` following the project's domain docs conventions
+- [x] Build, test and PDF commands documented
+- [x] No documentation mentions `pico`, search or giscus as current
+- [x] All text in English
