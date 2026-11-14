@@ -6,7 +6,7 @@ Parent: `.scratch/redesign/spec.md`
 
 **Blocked by:** 07, 08
 
-**Status:** ready-for-agent
+**Status:** resolved
 
 - [x] Two ADRs under `docs/adr/` following the project's domain docs conventions
 - [x] Build, test and PDF commands documented
