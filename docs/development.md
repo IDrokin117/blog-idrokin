@@ -16,7 +16,7 @@ Add a test case by adding fixture content under `tests/fixture/content` and a `h
 
 ## Resume PDF and deploy
 
-`scripts/build.sh` is the one local command: it builds the site into `public/`, runs `zola check --skip-external-links` (a broken internal link fails it), and renders the built Resume page to `public/files/resume.pdf` (stable URL `/files/resume.pdf`, linked from the Resume page as "Download PDF"). The PDF is never committed. It needs Zola (`$ZOLA` or `PATH`) and [uv](https://docs.astral.sh/uv/); the PDF is rendered by WeasyPrint through `uv run scripts/resume-pdf.py` (uv installs WeasyPrint itself; the system needs Pango, present on most Linux desktops/WSL). The PDF look comes from the `@media print` rules in `sass/style.scss`.
+`scripts/build.sh` is the one local command: it builds the site into `public/`, runs `zola check --skip-external-links` (a broken internal link fails it), and renders the built Resume page to `public/files/resume.pdf` (stable URL `/files/resume.pdf`, linked from the Resume page as "Download PDF"). The PDF is never committed; `build.sh` also copies it to `static/files/` (gitignored) so `zola serve` serves it locally. It needs Zola (`$ZOLA` or `PATH`) and [uv](https://docs.astral.sh/uv/); the PDF is rendered by WeasyPrint through `uv run scripts/resume-pdf.py` (uv installs WeasyPrint itself; the system needs Pango, present on most Linux desktops/WSL). The PDF look comes from the `@media print` rules in `sass/style.scss`.
 
 Why WeasyPrint: a Python package run through uv, no browser needed. It does not support every modern CSS feature (e.g. `clamp()`, media queries in `rem`), so print rules in `sass/style.scss` stay simple and set explicit values. See ADR 0002.
 

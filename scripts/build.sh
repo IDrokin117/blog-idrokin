@@ -63,4 +63,6 @@ if command -v pdftotext >/dev/null 2>&1; then
   pdftotext "$OUT/$PDF_PATH" - 2>/dev/null | grep -qF "$EXPECTED" \
     || { echo "PDF does not contain Resume text ('$EXPECTED')" >&2; exit 1; }
 fi
+# Local copy for `zola serve`, which does not serve public/ (static/files/ is gitignored).
+mkdir -p "static/$(dirname "$PDF_PATH")" && cp "$OUT/$PDF_PATH" "static/$PDF_PATH"
 echo "ok: $OUT/$PDF_PATH ($(wc -c <"$OUT/$PDF_PATH") bytes)"
