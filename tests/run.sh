@@ -58,6 +58,21 @@ for k in email github linkedin location; do
 done
 { ! grep -Eq '<(a|div|ul|section) ' "$REAL" 2>/dev/null; } && pass "real resume has no HTML markup" || fail "real resume has no HTML markup"
 
+# Home page (links must be in the page body, not only in the header or footer)
+home_main=$(tr -d '\n' <"$OUT/index.html" | grep -oE '<main[^>]*>.*</main>')
+in_home() { printf '%s' "$home_main" | grep -Eq -- "$1" && pass "$2" || fail "$2"; }
+has index.html '<h1[^>]*>Igor Drokin</h1>' "home shows the author name"
+in_home '<img[^>]*avatar' "home shows an avatar"
+in_home 'href="?[^" >]*/resume/?[" >]' "home links to Resume"
+in_home 'href="?https://github\.com/[^" >]+' "home links to GitHub"
+in_home 'href="?https://www\.linkedin\.com/[^" >]+' "home links to LinkedIn"
+in_home 'href="?mailto:[^" >]+' "home links to Email"
+home_posts=$(grep -oE 'href="?[^" >]*/posts/[a-z-]+/' "$OUT/index.html" | sed -E 's#.*/posts/([a-z-]+)/#\1#' | paste -sd,)
+[ "$home_posts" = "latest-four,latest-three,standalone" ] && pass "home lists exactly the three latest posts, newest first" || fail "home lists exactly the three latest posts, newest first (got: $home_posts)"
+avatar_file=$(ls "$ROOT"/static/images/avatar.* 2>/dev/null | head -1)
+avatar_kb=$(( $(stat -c %s "$avatar_file") / 1024 ))
+[ "$avatar_kb" -lt 200 ] && pass "avatar under 200 KB" || fail "avatar under 200 KB (${avatar_kb} KB)"
+
 # Tags and feed
 exists tags/about/index.html "tag page exists"
 has tags/about/index.html 'Hello World' "tag page lists its post"

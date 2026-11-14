@@ -28,3 +28,8 @@ img { max-width: 100%; }
   .resume-body h2 { break-after: avoid; }
   .resume-body h3, .resume-body li { break-inside: avoid; }
 }
+
+.intro-head { display: flex; align-items: center; gap: 1rem; }
+.intro-head h1 { margin: 0; }
+.avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; }
+.links a { margin-right: 1rem; }
