@@ -11,3 +11,8 @@ nav a { margin-right: 1rem; }
 nav a.active { font-weight: bold; }
 img { max-width: 100%; }
 .post-list { list-style: none; padding: 0; }
+
+.intro-head { display: flex; align-items: center; gap: 1rem; }
+.intro-head h1 { margin: 0; }
+.avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; }
+.links a { margin-right: 1rem; }
