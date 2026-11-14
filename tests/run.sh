@@ -63,6 +63,47 @@ for k in email github linkedin location; do
 done
 { ! grep -Eq '<(a|div|ul|section) ' "$REAL" 2>/dev/null; } && pass "real resume has no HTML markup" || fail "real resume has no HTML markup"
 
+# Home page (links must be in the page body, not only in the header or footer)
+home_main=$(tr -d '\n' <"$OUT/index.html" | grep -oE '<main[^>]*>.*</main>')
+in_home() { printf '%s' "$home_main" | grep -Eq -- "$1" && pass "$2" || fail "$2"; }
+has index.html '<h1[^>]*>Igor Drokin</h1>' "home shows the author name"
+in_home '<img[^>]*avatar' "home shows an avatar"
+in_home 'href="?[^" >]*/resume/?[" >]' "home links to Resume"
+in_home 'href="?https://github\.com/[^" >]+' "home links to GitHub"
+in_home 'href="?https://www\.linkedin\.com/[^" >]+' "home links to LinkedIn"
+in_home 'href="?mailto:[^" >]+' "home links to Email"
+home_posts=$(grep -oE 'href="?[^" >]*/posts/[a-z-]+/' "$OUT/index.html" | sed -E 's#.*/posts/([a-z-]+)/#\1#' | paste -sd,)
+[ "$home_posts" = "latest-four,latest-three,standalone" ] && pass "home lists exactly the three latest posts, newest first" || fail "home lists exactly the three latest posts, newest first (got: $home_posts)"
+avatar_file=$(ls "$ROOT"/static/images/avatar.* 2>/dev/null | head -1)
+avatar_kb=$(( $(stat -c %s "$avatar_file") / 1024 ))
+[ "$avatar_kb" -lt 200 ] && pass "avatar under 200 KB" || fail "avatar under 200 KB (${avatar_kb} KB)"
+
+# Series
+S=posts/rust-part-one/index.html
+has $S 'Rust Intro</a> · Part 1 of 2' "series label shows name, part and total"
+has $S 'href="?[^" >]*/series/rust-intro/' "series label links to series page"
+has posts/rust-part-two/index.html 'Rust Intro</a> · Part 2 of 2' "part 2 label"
+has $S 'href="?[^" >]*/posts/rust-part-two/[^>]*>[^<]*Next' "part 1 links to next part"
+lacks $S 'Previous' "first part has no previous link"
+has posts/rust-part-two/index.html 'href="?[^" >]*/posts/rust-part-one/[^>]*>[^<]*Previous' "part 2 links to previous part"
+has $S '<details' "collapsed parts list present"
+order=$(tr -d '\n' <"$OUT/$S" | grep -oE '<details.*</details>' | grep -oE 'Rust Part (One|Two)' | paste -sd,)
+[ "$order" = "Rust Part One,Rust Part Two" ] && pass "parts ordered by part number not date" || fail "parts ordered by part number (got: $order)"
+lacks $S 'Rust Part Three' "draft part absent from navigation and list"
+exists series/rust-intro/index.html "series page exists"
+has series/rust-intro/index.html 'A gentle introduction to Rust' "series page shows description"
+has series/rust-intro/index.html '<h1[^>]*>Rust Intro</h1>' "series page shows title"
+sorder=$(tr -d '\n' <"$OUT/series/rust-intro/index.html" | grep -oE 'Rust Part (One|Two|Three)' | paste -sd,)
+[ "$sorder" = "Rust Part One,Rust Part Two" ] && pass "series page lists ordered published parts" || fail "series page order (got: $sorder)"
+has posts/drafty-one/index.html 'Drafty Series</a> · Part 1 of 2' "draft part excluded from total"
+lacks posts/drafty-one/index.html 'Drafty Two' "draft part absent from navigation"
+lacks series/drafty/index.html 'Drafty Two' "draft part absent from series page"
+lacks posts/standalone/index.html 'Part [0-9]+ of|<details' "post outside series has no series elements"
+has posts/double-series/index.html 'Drafty Series</a> · Part 9 of' "first series value is used"
+chk=$("$ROOT/scripts/check-series.sh" "$ROOT/tests/fixture/content" 2>&1)
+echo "$chk" | grep -q 'double-series' && pass "multi-series post triggers warning" || fail "multi-series post triggers warning"
+echo "$chk" | grep -q 'standalone\|rust-part-one' && fail "warning only for multi-series posts" || pass "warning only for multi-series posts"
+
 # Tags and feed
 exists tags/about/index.html "tag page exists"
 has tags/about/index.html 'Hello World' "tag page lists its post"
@@ -97,6 +138,22 @@ grep -q 'base_url = "https://www.idrokin.com/"' "$ROOT/config.toml" && pass "bas
 exists style.css "single stylesheet compiled from sass"
 absent css/responsive.css "no leftover pico css"
 { ! grep -rPq '[\x{0400}-\x{04FF}]' "$ROOT/templates" "$ROOT/config.toml" "$ROOT/tests/fixture/content"; } && pass "no Cyrillic in templates/config/fixture" || fail "no Cyrillic in templates/config/fixture"
+
+# Typography and themes
+exists fonts/source-serif-4-normal.woff2 "serif font served from the site"
+exists fonts/source-serif-4-italic.woff2 "italic serif font served from the site"
+lacks style.css 'https?://' "no third-party URLs in the stylesheet"
+lacks index.html 'fonts\.(googleapis|gstatic)|https?://[^" ]*\.woff' "no third-party font requests in HTML"
+has style.css 'prefers-color-scheme: ?dark' "dark theme follows system preference"
+has style.css '@font-face' "fonts declared via @font-face"
+lacks style.css 'data-theme' "no theme toggle"
+has posts/hello-world/index.html 'class="?z-l-' "code highlighting is class-based"
+lacks posts/hello-world/index.html 'style="[^"]*color:' "no inline highlight colors"
+exists giallo-light.css "light highlight color set generated"
+exists giallo-dark.css "dark highlight color set generated"
+has posts/hello-world/index.html 'giallo-light.css[^>]*prefers-color-scheme: ?light|prefers-color-scheme: ?light[^>]*giallo-light.css' "light highlight set loaded for light scheme"
+has posts/hello-world/index.html 'giallo-dark.css[^>]*prefers-color-scheme: ?dark|prefers-color-scheme: ?dark[^>]*giallo-dark.css' "dark highlight set loaded for dark scheme"
+has index.html 'name="?viewport' "viewport meta for phone width"
 
 echo
 [ "$FAILS" -eq 0 ] && echo "all passed" || { echo "$FAILS failed"; exit 1; }

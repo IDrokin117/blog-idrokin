@@ -13,12 +13,15 @@ feed_filenames = ["rss.xml"]
 
 taxonomies = [
     { name = "tags" },
+    { name = "series", render = false },
 ]
 
 [markdown]
-# Syntax highlighting theme is refined in the typography and themes ticket
+# Class-based highlighting; colors live in sass/style.scss (light and dark sets)
 [markdown.highlighting]
-theme = "github-light"
+style = "class"
+light_theme = "solarized-light"
+dark_theme = "solarized-dark"
 
 [extra]
 author = "Igor Drokin"
@@ -30,7 +33,10 @@ top_menu = [
 ]
 
 copyright_string = "Created by Igor Drokin in 2025 – %YEAR%. Powered by [zola](https://getzola.org/)."
-avatar_src = "images/avatar.png"
+avatar_src = "images/avatar.webp"
+email = "drokinii1017@gmail.com"
+github = "https://github.com/IDrokin117"
+linkedin = "https://www.linkedin.com/in/igor-drokin-822233227/"
 
 [extra.footer.icons]
 github = "https://github.com/LyricalToxic"

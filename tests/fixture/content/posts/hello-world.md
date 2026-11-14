@@ -7,3 +7,7 @@ description = "About me and my blog"
 tags = ["about"]
 +++
 Hello body text. {{ <draw_image path="images/hello_world_meme.jpg" base_url={config.base_url} /> }}
+
+```rust
+fn main() { let x = 1; }
+```

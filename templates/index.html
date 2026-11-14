@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ config.extra.author }}</h1>
-{{ section.content | safe }}
+<section class="intro">
+  <div class="intro-head">
+    <img class="avatar" src="{{ get_url(path=config.extra.avatar_src) }}" alt="Portrait of {{ config.extra.author }}" width="64" height="64">
+    <h1>{{ config.extra.author }}</h1>
+  </div>
+  <div class="about">{{ section.content | safe }}</div>
+  <p class="links">
+    <a href="{{ get_url(path='resume/') }}">Resume</a>
+    <a href="{{ config.extra.github }}">GitHub</a>
+    <a href="{{ config.extra.linkedin }}">LinkedIn</a>
+    <a href="mailto:{{ config.extra.email }}">Email</a>
+  </p>
+</section>
 {% set posts = get_section(path="posts/_index.md") %}
 <h2>Latest posts</h2>
 <ul class="post-list">
