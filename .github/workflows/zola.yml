@@ -1,18 +1,39 @@
-on: push
 name: Build and deploy GH Pages
+on:
+  push:
+    branches: [main, redesign]
+
+env:
+  ZOLA_VERSION: "0.23.6"
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: build_and_deploy
-        uses: shalzz/zola-deploy-action@master
-        env:
-          # Target branch
-          PAGES_BRANCH: gh-pages
-          # Provide personal access token
-          # TOKEN: ${{ secrets.TOKEN }}
-          # Or if publishing to the same repo, use the automatic token
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: install zola
+        run: |
+          curl -sSL "https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz
+          sudo mv zola /usr/local/bin/zola
+          zola --version
+
+      - name: test
+        run: tests/run.sh
+
+      # Builds the site, checks internal links (fails the job on a broken link),
+      # and renders the Resume page to public/files/resume.pdf with the
+      # Google Chrome preinstalled on ubuntu-latest.
+      - name: build, link check, pdf
+        run: scripts/build.sh
+
+      - name: publish to gh-pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: public

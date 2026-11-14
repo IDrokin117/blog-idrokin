@@ -22,7 +22,6 @@ website = "https://www.idrokin.com"
 Welcome to Igor Drokin resume! I am a Senior Software Engineer and Team Lead with 5+ years of experience in Python and Rust development. 
 I specialize in building high-scale data processing systems, leading engineering teams, and deploying production solutions on AWS infrastructure. 
 My expertise includes web scraping, ETL pipelines, cloud infrastructure management and backend development.
-You can read resume below or download it in [.pdf](/files/resume.pdf) format.
 
 **Core Competencies**
 
