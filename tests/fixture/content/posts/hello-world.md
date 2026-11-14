@@ -6,7 +6,7 @@ description = "About me and my blog"
 [taxonomies]
 tags = ["about"]
 +++
-Hello body text. {{ <draw_image path="images/hello_world_meme.jpg" base_url={config.base_url} /> }}
+Hello body text. {{ <draw_image path="images/hello_world_meme.jpg" /> }}
 
 ```rust
 fn main() { let x = 1; }

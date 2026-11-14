@@ -1,8 +1,8 @@
 {# Components used from markdown content. Zola 0.23 removed shortcodes; see docs/development.md. #}
 
-{# Image from static/, e.g. {{ <draw_image path="images/x.jpg" base_url={config.base_url} /> }} #}
-{% component draw_image(path, base_url) %}
-<div><img src="{{ base_url ~ path }}" /></div>
+{# Image from static/, e.g. {{ <draw_image path="images/x.jpg" /> }} #}
+{% component draw_image(path) %}
+<div><img src="{{ get_url(path=path) }}" /></div>
 {% endcomponent draw_image %}
 
 {# Resized image, e.g. {{ <resize_image path="images/x.jpg" width=300 height=200 op="fill" /> }} #}

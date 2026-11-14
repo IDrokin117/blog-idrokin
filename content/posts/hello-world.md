@@ -16,4 +16,4 @@ keywords = "igor,drokin,about"
 +++
 # Hello World
 
-Yet another "Hello, World!" ... {{ <draw_image path="images/hello_world_meme.jpg" base_url={config.base_url} /> }}
+Yet another "Hello, World!" ... {{ <draw_image path="images/hello_world_meme.jpg" /> }}

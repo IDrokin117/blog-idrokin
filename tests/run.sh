@@ -104,6 +104,31 @@ chk=$("$ROOT/scripts/check-series.sh" "$ROOT/tests/fixture/content" 2>&1)
 echo "$chk" | grep -q 'double-series' && pass "multi-series post triggers warning" || fail "multi-series post triggers warning"
 echo "$chk" | grep -q 'standalone\|rust-part-one' && fail "warning only for multi-series posts" || pass "warning only for multi-series posts"
 
+has posts/name-series/index.html 'Name Test</a> · Part 1 of 1' "series referenced by display name resolves via slug"
+has posts/name-series/index.html '<title>Name Series Post · IDrokin</title>' "post title includes site name"
+has posts/name-series/index.html 'content="?Post description for meta"? name="?description' "post description used in meta"
+has posts/name-series/index.html 'content="alpha, beta" name="?keywords' "post keywords emitted"
+has posts/index.html 'content="?All fixture posts"? name="?description' "section description used in meta"
+has index.html '<title>IDrokin</title>' "home title is the site name"
+lacks posts/standalone/index.html 'name="?keywords' "no keywords meta without front matter keywords"
+in_footer() { tr -d '\n' <"$OUT/index.html" | grep -oE '<footer.*</footer>' | grep -Eq -- "$1" && pass "$2" || fail "$2"; }
+in_footer 'href="?https://github\.com/IDrokin117[" >]' "footer GitHub link comes from extra.github"
+{ ! grep -q 'LyricalToxic' "$ROOT/config.toml"; } && pass "no stale GitHub identity in config" || fail "no stale GitHub identity in config"
+# check-series: multi-line arrays and missing part
+CS="$(mktemp -d)"; mkdir -p "$CS/posts"
+printf '+++\ntitle = "A"\n[taxonomies]\nseries = [\n  "a",\n  "b",\n]\n[extra]\npart = 1\n+++\n' >"$CS/posts/multi.md"
+printf '+++\ntitle = "B"\n[taxonomies]\nseries = ["a"]\n+++\n' >"$CS/posts/nopart.md"
+printf '+++\ntitle = "C"\n[taxonomies]\nseries = ["a"]\n[extra]\npart = 2\n+++\n' >"$CS/posts/ok.md"
+chk2=$("$ROOT/scripts/check-series.sh" "$CS" 2>&1); rc=$?
+echo "$chk2" | grep -q 'multi.md' && pass "multi-line series array detected" || fail "multi-line series array detected"
+echo "$chk2" | grep -q 'nopart.md' && pass "missing extra.part reported" || fail "missing extra.part reported"
+echo "$chk2" | grep -q 'ok.md' && fail "valid post not reported" || pass "valid post not reported"
+[ "$rc" -ne 0 ] && pass "check-series fails on missing part" || fail "check-series fails on missing part"
+rm -rf "$CS"
+"$ROOT/scripts/check-series.sh" "$ROOT/content" >/dev/null 2>&1 && pass "real content passes check-series" || fail "real content passes check-series"
+grep -q 'check-series' "$ROOT/scripts/build.sh" && pass "build.sh runs check-series" || fail "build.sh runs check-series"
+grep -q 'pull_request' "$ROOT/.github/workflows/zola.yml" && pass "CI runs on pull_request" || fail "CI runs on pull_request"
+
 # Series discovery
 posts_main=$(tr -d '\n' <"$OUT/posts/index.html" | grep -oE '<main[^>]*>.*</main>')
 in_posts() { printf '%s' "$posts_main" | grep -Eq -- "$1" && pass "$2" || fail "$2"; }

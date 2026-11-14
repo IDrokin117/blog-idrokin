@@ -24,7 +24,7 @@ The workflow `.github/workflows/zola.yml` runs: checkout, install pinned Zola (`
 
 ## Content components (no shortcodes)
 
-Zola 0.23 removed shortcodes (that was the cause of the old "Unknown function `draw_image`" error). Reusable snippets are Tera components in `templates/components.html`, used in markdown as `{{ <draw_image path="images/x.jpg" base_url={config.base_url} /> }}`. Components cannot read `config`, so pass what they need explicitly.
+Zola 0.23 removed shortcodes (that was the cause of the old "Unknown function `draw_image`" error). Reusable snippets are Tera components in `templates/components.html`, used in markdown as `{{ <draw_image path="images/x.jpg" /> }}`. Components cannot read `config` but can call `get_url`, so the image URL needs no `base_url` argument.
 
 ## Revealing Projects
 
