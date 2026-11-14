@@ -166,5 +166,21 @@ exists style.css "single stylesheet compiled from sass"
 absent css/responsive.css "no leftover pico css"
 { ! grep -rPq '[\x{0400}-\x{04FF}]' "$ROOT/templates" "$ROOT/config.toml" "$ROOT/tests/fixture/content"; } && pass "no Cyrillic in templates/config/fixture" || fail "no Cyrillic in templates/config/fixture"
 
+# Typography and themes
+exists fonts/source-serif-4-normal.woff2 "serif font served from the site"
+exists fonts/source-serif-4-italic.woff2 "italic serif font served from the site"
+lacks style.css 'https?://' "no third-party URLs in the stylesheet"
+lacks index.html 'fonts\.(googleapis|gstatic)|https?://[^" ]*\.woff' "no third-party font requests in HTML"
+has style.css 'prefers-color-scheme: ?dark' "dark theme follows system preference"
+has style.css '@font-face' "fonts declared via @font-face"
+lacks style.css 'data-theme' "no theme toggle"
+has posts/hello-world/index.html 'class="?z-l-' "code highlighting is class-based"
+lacks posts/hello-world/index.html 'style="[^"]*color:' "no inline highlight colors"
+exists giallo-light.css "light highlight color set generated"
+exists giallo-dark.css "dark highlight color set generated"
+has posts/hello-world/index.html 'giallo-light.css[^>]*prefers-color-scheme: ?light|prefers-color-scheme: ?light[^>]*giallo-light.css' "light highlight set loaded for light scheme"
+has posts/hello-world/index.html 'giallo-dark.css[^>]*prefers-color-scheme: ?dark|prefers-color-scheme: ?dark[^>]*giallo-dark.css' "dark highlight set loaded for dark scheme"
+has index.html 'name="?viewport' "viewport meta for phone width"
+
 echo
 [ "$FAILS" -eq 0 ] && echo "all passed" || { echo "$FAILS failed"; exit 1; }
