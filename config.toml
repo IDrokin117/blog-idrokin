@@ -13,6 +13,7 @@ feed_filenames = ["rss.xml"]
 
 taxonomies = [
     { name = "tags" },
+    { name = "series", render = false },
 ]
 
 [markdown]
