@@ -20,7 +20,7 @@ Add a test case by adding fixture content under `tests/fixture/content` and a `h
 
 Why headless Chrome: it is preinstalled on GitHub's `ubuntu-latest`, runs locally with no extra Python/system stack, and renders the real stylesheet with full modern CSS (WeasyPrint lags on CSS support and needs Pango). A local Chromium can also come from Playwright (`npx playwright-core install chromium-headless-shell`); point `$CHROME` at it.
 
-The workflow `.github/workflows/zola.yml` runs: checkout, install pinned Zola (`ZOLA_VERSION`), `tests/run.sh`, `scripts/build.sh`, then (only on `main`) publish `public/` to the `gh-pages` branch. Pushes to `redesign` build and check without publishing.
+The workflow `.github/workflows/zola.yml` runs: checkout, install pinned Zola (`ZOLA_VERSION`), `tests/run.sh`, `scripts/build.sh`, then (only on `main`) publish `public/` to the `gh-pages` branch. Pull requests build and check without publishing.
 
 ## Content components (no shortcodes)
 

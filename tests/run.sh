@@ -58,7 +58,7 @@ REAL="$ROOT/content/resume/_index.md"
 for h in Summary Experience Skills Education; do
   grep -Eq "^## $h\s*$" "$REAL" && pass "real resume has $h heading" || fail "real resume has $h heading"
 done
-for k in email github linkedin location; do
+for k in email github linkedin; do
   awk '/^\+\+\+/{n++} n==1' "$REAL" | grep -Eq "^$k *=" && pass "real resume front matter has $k" || fail "real resume front matter has $k"
 done
 { ! grep -Eq '<(a|div|ul|section) ' "$REAL" 2>/dev/null; } && pass "real resume has no HTML markup" || fail "real resume has no HTML markup"

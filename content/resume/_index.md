@@ -13,7 +13,6 @@ name = "Igor Drokin"
 email = "drokinii1017@gmail.com"
 github = "https://github.com/IDrokin117"
 linkedin = "https://www.linkedin.com/in/igor-drokin-822233227/"
-location = "Ukraine"
 website = "https://www.idrokin.com"
 +++
 
