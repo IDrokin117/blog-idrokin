@@ -7,7 +7,57 @@
       <generator>Zola</generator>
       <language>en</language>
       <atom:link href="https://www.idrokin.com/rss.xml" rel="self" type="application/rss+xml"/>
-      <lastBuildDate>Mon, 14 Jul 2025 00:00:00 +0000</lastBuildDate>
+      <lastBuildDate>Sat, 14 Nov 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>AI Realist</title>
+          <pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/beliefs/ai-realist/</link>
+          <guid>https://www.idrokin.com/beliefs/ai-realist/</guid>
+          <description xml:base="https://www.idrokin.com/beliefs/ai-realist/">&lt;!-- Draft caption: AI writes a lot of my code. I read all of it. Mostly. --&gt;
+&lt;p&gt;Write-up coming soon.&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>Async Lingerer</title>
+          <pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/beliefs/async-lingerer/</link>
+          <guid>https://www.idrokin.com/beliefs/async-lingerer/</guid>
+          <description xml:base="https://www.idrokin.com/beliefs/async-lingerer/">&lt;!-- Draft caption: You can watch three things forever: Rust compiling, an LLM thinking, and CI going green. Software engineering is mostly `.await`. --&gt;
+&lt;p&gt;Write-up coming soon.&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>Code Ironist</title>
+          <pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/beliefs/code-ironist/</link>
+          <guid>https://www.idrokin.com/beliefs/code-ironist/</guid>
+          <description xml:base="https://www.idrokin.com/beliefs/code-ironist/">&lt;!-- Draft caption: I have radical doubts about the code I ship. More tests in the same codebase won&#39;t settle them. I ship anyway. --&gt;
+&lt;p&gt;Write-up coming soon.&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>Design Fallibilist</title>
+          <pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/beliefs/design-fallibilist/</link>
+          <guid>https://www.idrokin.com/beliefs/design-fallibilist/</guid>
+          <description xml:base="https://www.idrokin.com/beliefs/design-fallibilist/">&lt;!-- Draft caption: Every architecture decision is a hypothesis. Don&#39;t block the way of inquiry, or the migration path. --&gt;
+&lt;p&gt;Write-up coming soon.&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>Type Inferentialist</title>
+          <pubDate>Sat, 14 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://www.idrokin.com/beliefs/type-inferentialist/</link>
+          <guid>https://www.idrokin.com/beliefs/type-inferentialist/</guid>
+          <description xml:base="https://www.idrokin.com/beliefs/type-inferentialist/">&lt;!-- Draft caption: Your code means whatever can be inferred from it, usually more than you intended. --&gt;
+&lt;p&gt;Write-up coming soon.&lt;/p&gt;
+</description>
+      </item>
       <item>
           <title>Hello World</title>
           <pubDate>Mon, 14 Jul 2025 00:00:00 +0000</pubDate>

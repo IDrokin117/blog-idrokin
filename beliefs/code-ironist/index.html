@@ -1,0 +1,27 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta content="width=device-width,initial-scale=1" name=viewport><title>Code Ironist · IDrokin</title><meta content="Code Ironist: a working belief. Write-up coming soon." name=description><meta content="Igor Drokin" name=author><meta content="Igor Drokin" property=og:site_name><meta content="Code Ironist · IDrokin" property=og:title><meta content="Code Ironist: a working belief. Write-up coming soon." property=og:description><meta content=article property=og:type><meta content=https://www.idrokin.com/beliefs/code-ironist/ property=og:url><meta content=https://www.idrokin.com/images/avatar.webp property=og:image><meta content=summary name=twitter:card><link href=https://www.idrokin.com/style.css rel=stylesheet><link media="not all" href=https://www.idrokin.com/giallo-light.css id=hl-light rel=stylesheet><link href=https://www.idrokin.com/giallo-dark.css id=hl-dark media=all rel=stylesheet><script data-site=palette>(function () {
+    var p = null;
+    try { p = localStorage.getItem("palette"); } catch (e) {}
+    if (!/^(dark|cream)$/.test(p)) return;
+    document.documentElement.dataset.palette = p;
+    var dark = p === "dark";
+    document.getElementById("hl-light").media = dark ? "not all" : "all";
+    document.getElementById("hl-dark").media = dark ? "all" : "not all";
+  })();</script><meta content="dark light" name=color-scheme><link href=https://www.idrokin.com/rss.xml rel=alternate title=IDrokin type=application/rss+xml><link href=https://www.idrokin.com/images/favicon.webp rel=icon type=image/webp><body><header class=site-header><div class="container site-header__inner"><a class=brand href=https://www.idrokin.com>Igor Drokin</a><div class=header-end><nav aria-label=Main><a href=https://www.idrokin.com>Home</a><a href=https://www.idrokin.com/posts>Posts</a><a href=https://www.idrokin.com/resume>Resume</a></nav><div aria-label=Theme class=palette-switch role=group><button aria-label="Dark theme" data-set=dark title=Dark type=button></button><button aria-label="Light theme" data-set=cream title=Light type=button></button></div></div></div></header><main class=container><article class=post><h1>Code Ironist</h1><p class=meta><time datetime=2026-11-14>November 14, 2026</time> · 1 min read<p>Write-up coming soon.</article></main><footer class=site-footer><div class="container site-footer__inner"><p>Created by Igor Drokin in 2025 – 2026. Powered by <a rel="noopener external" href=https://getzola.org/ target=_blank>zola</a>.<p class=site-footer__links><a href=https://github.com/IDrokin117 rel=noopener target=_blank>GitHub</a> <a href=https://www.linkedin.com/in/igor-drokin-822233227/ rel=noopener target=_blank>LinkedIn</a> <a href=https://www.idrokin.com/rss.xml>RSS</a></div></footer><script data-site=palette>(function () {
+  var root = document.documentElement;
+  var btns = document.querySelectorAll(".palette-switch button");
+  function mark() {
+    var cur = root.dataset.palette || "dark";
+    btns.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === cur); });
+  }
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      root.dataset.palette = b.dataset.set;
+      var dark = b.dataset.set === "dark";
+      document.getElementById("hl-light").media = dark ? "not all" : "all";
+      document.getElementById("hl-dark").media = dark ? "all" : "not all";
+      try { localStorage.setItem("palette", b.dataset.set); } catch (e) {}
+      mark();
+    });
+  });
+  mark();
+})();</script>
